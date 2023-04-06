@@ -187,6 +187,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware'=>['auth:admin'
     //     return view('backend.pages.currency.currencylist');
     // })->name('currency');
 
+    // dsdd
     Route::group(['prefix' => 'profile', 'as' => 'auth_user.'], function () {
         Route::get('/',         [AdminProfileController::class, 'profile'])->name('profile');
         Route::put('/{admin}',  [AdminProfileController::class, 'update'])->name('profile_update');
