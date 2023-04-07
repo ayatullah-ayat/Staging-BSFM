@@ -25,7 +25,6 @@ class ShopController extends Controller
      
     public function index()
     {
-        dd('ShopController Index');
         $maxId    = request()->max_id ?? $this->maxId;
         $limit    = request()->limit ?? $this->limit;
         $operator = request()->operator ?? '<';
@@ -218,7 +217,6 @@ class ShopController extends Controller
      */
     public function show(Product $product, $slug=null)
     {
-        dd('ShopController Show');
         if(!$product) abort(404, "Product Not Found!");
 
         $otherProducts = Product::where('category_id', $product->category_id)

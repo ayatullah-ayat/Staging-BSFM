@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Services\ProductSearch;
 use Illuminate\Support\Facades\Cookie;
 
-class ShopController extends Controller
+class ShopController2 extends Controller
 {
     use ProductSearch;
     /**
