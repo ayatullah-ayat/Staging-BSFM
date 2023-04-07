@@ -25,6 +25,7 @@ class ShopController extends Controller
      
     public function index()
     {
+        return 'nothing';
         $maxId    = request()->max_id ?? $this->maxId;
         $limit    = request()->limit ?? $this->limit;
         $operator = request()->operator ?? '<';
