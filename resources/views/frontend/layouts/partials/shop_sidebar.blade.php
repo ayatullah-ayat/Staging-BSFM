@@ -4,7 +4,7 @@
             <button class="accordion-button" type="button" data-bs-toggle="collapse"
                 data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
                 aria-controls="panelsStayOpen-collapseOne">
-                ক্যাটাগরি
+                Category
             </button>
         </h2>
 
@@ -34,7 +34,7 @@
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                 data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false"
                 aria-controls="panelsStayOpen-collapseTwo">
-                কালার
+                Color
             </button>
         </h2>
         <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse"
@@ -61,7 +61,7 @@
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                 data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false"
                 aria-controls="panelsStayOpen-collapseThree">
-                সাইজ
+                Size
             </button>
         </h2>
 
@@ -88,7 +88,7 @@
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                 data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false"
                 aria-controls="panelsStayOpen-collapseThree">
-                প্রাইজ
+                Price
             </button>
         </h2>
         <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse"
@@ -116,14 +116,14 @@
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                 data-bs-target="#panelsStayOpen-collapseFive" aria-expanded="false"
                 aria-controls="panelsStayOpen-collapseThree">
-                ট্যাগ
+                Tag
             </button>
         </h2>
         <div id="panelsStayOpen-collapseFive" class="accordion-collapse collapse"
             aria-labelledby="panelsStayOpen-headingFive">
             <div class="accordion-body">
                 <div class="single-prodect-category">
-                    <h3 class="mb-2"> ট্যাগ সমূহঃ </h3>
+                    <h3 class="mb-2"> Tags: </h3>
                     <div class="d-flex flex-wrap  gap-1">
                         @isset($tags)
                             @foreach ($tags as $tag)

@@ -9,8 +9,8 @@
 
             <div class="col-md-3">
                 <div class="shop-sidebar">
-
                     
+                    @dump($productColors)
 
                 </div>
             </div>
