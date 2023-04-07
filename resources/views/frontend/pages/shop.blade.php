@@ -10,12 +10,7 @@
             <div class="col-md-3">
                 <div class="shop-sidebar">
 
-                    @includeIf('frontend.layouts.partials.shop_sidebar', [
-                        'categories'    =>$categories ?? null, 
-                        'productColor'  =>$productColors ?? null, 
-                        'productSize'   =>$productSize ?? null,
-                        'maxSalesPrice' => $maxSalesPrice ? $maxSalesPrice->max_sale_price : 0
-                    ])
+                    
 
                 </div>
             </div>
