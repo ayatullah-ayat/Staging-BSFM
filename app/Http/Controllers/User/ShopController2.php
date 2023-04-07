@@ -20,6 +20,7 @@ class ShopController extends Controller
      
     public function index()
     {
+        dd('shopController2');
         $maxId    = request()->max_id ?? 0;
         $limit    = request()->limit ?? 20;
         $operator = request()->operator ?? '<';
@@ -153,6 +154,7 @@ class ShopController extends Controller
      */
     public function show(Product $product, $slug=null)
     {
+        dd('ShopController2 Show');
 
         if(!$product) abort(404, "Product Not Found!");
 
