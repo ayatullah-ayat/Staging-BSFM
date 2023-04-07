@@ -79,9 +79,7 @@ Route::group(['prefix' => ''],function(){
     Route::get('/',                         [HomeController::class, 'index'])->name('home_index');
     Route::post('/home-client-logos',       [HomeController::class, 'home_client_loadmore'])->name('home_client_loadmore');
 
-    Route::get('/shop',                     function() {
-        return 'nothing';
-    })->name('shop_index');
+    Route::get('/shop',                     [ShopController::class, 'index'])->name('shop_index');
     Route::post('/shop',                    [ShopController::class, 'ajaxFilter'])->name('shop_ajax_filter');
     Route::get('/shop/{product}/{slug?}',   [ShopController::class, 'show'])->name('product_detail');
 
