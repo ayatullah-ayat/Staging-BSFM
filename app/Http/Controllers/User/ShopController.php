@@ -75,8 +75,6 @@ class ShopController extends Controller
                     ->where('is_active', 1)
                     ->where('is_publish', 1)
                     ->first();
-
-        dd($maxSalesPrice);
         $countProducts = Product::where('is_active', 1)->where('is_publish', 1)->count();
         
 
