@@ -28,6 +28,7 @@ class HomeController extends Controller
 
     public function index()
     {
+        dd('under construct, please wait');
             //   Artisan::call('storage:link');
         // Artisan::call('route:clear');
         // Artisan::call('view:clear');
