@@ -402,4 +402,38 @@ textarea.form-control {
         padding-left: 0;
         padding-right: 0;
     }
+    .hero-heading h2{
+        text-align: left;
+        font-size: 1.8em;
+        line-height: 38px;
+
+    }
+    .hero-text p{
+        text-align: justify;
+        font-size: 13px;
+    }
+    .our-service-area .container {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .heading-title h2 {
+        font-size: 25px;
+    }
+    .our-clients-area .container {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .our-contact-area .container {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .call-center-area .container {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    footer .container {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
 }

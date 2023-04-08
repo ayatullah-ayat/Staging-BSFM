@@ -136,10 +136,10 @@
             <h2> Our Services </h2>
         </div>
 
-        <div class="row">
+        <div class="row gx-3 gy-3">
             @isset($customservices)
             @foreach ($customservices as $customservice)
-            <div class="col-md-3 col-12 mt-4 d-flex align-items-center justify-content-center">
+            <div class="col-md-3 col-12 d-flex align-items-center justify-content-center">
                 <div class="card service-card">
                     <img draggable="false" class="card-img-top" src="{{ asset($customservice->service_thumbnail) }}" alt="Card image cap">
                     @if ($customservice->is_allow_caption)
