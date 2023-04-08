@@ -6,20 +6,24 @@
 }
 
 
-.shop-row {
-    width: 100% !important;
-    display: grid !important;
-    grid-template-columns: 16.938em auto !important;
-    flex-wrap: wrap;
-    position: relative;
-}
+
 
 .shop-sidebar {
-    width: 271px !important;
-    height: 100%;
+    height: 100vh;
     background: #FAFAFA;
     border-radius: 5px;
+    overflow-y: scroll;
 }
+.shop-sidebar::-webkit-scrollbar{
+    width: 5px;
+    height: 10px;
+    background-color: #e5e9d1;
+}
+
+.shop-sidebar::-webkit-scrollbar-thumb{
+    background-color: rgb(160, 115, 115);
+}
+
 
 .shop-sidebar .accordion-button {
     position: relative;
