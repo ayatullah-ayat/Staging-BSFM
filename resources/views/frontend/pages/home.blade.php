@@ -17,7 +17,7 @@
         <img src="{{asset('assets/frontend/img/bg/bg-1.png')}}" alt="bg-1">
     </div>
 
-    <div class="container">
+    <div class="container p-3" style="background-color: #ecf5f9;">
         <div class="row">
             <div class="col-md-2"></div>
             <div class="col-md-8 col-sm-12 d-flex align-items-center justify-content-center">
@@ -48,7 +48,7 @@
 <section class="container-fluid product-area">
 
     <div class="container">
-        <div class="row">
+        <div class="row product-area-row gx-3 gy-2">
             @php
             $maxCatId = 0;
             @endphp
@@ -59,7 +59,7 @@
             $maxCatId = $customservicecategory->id;
             @endphp
 
-            <div class="col-md-4 col-sm-12 mb-4">
+            <div class="col-md-4 col-sm-6 col-6 mb-1 product-area-column">
                 <div class="product-content d-flex">
 
                     <div class='reveal'>
@@ -75,8 +75,8 @@
                     </div>
 
                     <div class="product-details text-center">
-                        <h3 class="product-title"> {{ $customservicecategory->category_name  }} </h3>
-                        <p class="product-text"> {{ $customservicecategory->category_description  }} </p>
+                        <h3 class="product-title"> {{ \Illuminate\Support\Str::limit($customservicecategory->category_name, 8)  }} </h3>
+                        <p class="product-text"> {{ \Illuminate\Support\Str::limit($customservicecategory->category_description, 30)  }} </p>
                         <a href="javascript:void(0)" id="category_id" data-categoryid="{{$customservicecategory->id}}" type="button" class="product-button customize-btn"> কাস্টমাইজ করুন </a>
                     </div>
 
@@ -85,8 +85,8 @@
             @endforeach
             @endisset
 
-            <div data-totalcount="{{ $countCustomservicecategories ?? 0 }}" class="product-ses-more text-center loadMoreContainer {{ $countCustomservicecategories <= $limit ? 'd-none' : '' }}">
-                <a href="javascript:void(0)" data-uri="{{ route('home_index') }}" class="loadMoreBtn" data-maxid="{{ $maxCatId }}" data-limit="{{ $limit }}">See More Customize Product</a>
+            <div data-totalcount="{{ $countCustomservicecategories ?? 0 }}" class="mt-0 product-ses-more text-center loadMoreContainer {{ $countCustomservicecategories <= $limit ? 'd-none' : '' }}">
+                <a href="javascript:void(0)" data-uri="{{ route('home_index') }}" class="loadMoreBtn button-85" data-maxid="{{ $maxCatId }}" data-limit="{{ $limit }}">See More...</a>
             </div>
 
         </div>
@@ -95,7 +95,7 @@
 </section>
 
 <!-- Readymade Products Area-->
-<section class="container-fluid readymade-products-area">
+<!-- <section class="container-fluid readymade-products-area">
 
     <div class="background-2">
         <img src="{{asset('assets/frontend/img/bg/bg-2.png')}}" alt="bg-1">
@@ -121,7 +121,7 @@
 
     </div>
 
-</section>
+</section> -->
 
 <!-- Our Service Area-->
 <section class="container-fluid our-service-area">
@@ -195,8 +195,8 @@
             </div>
         </div>
 
-        <div data-totalcount="{{ $countClientLogos ?? 0 }}" class="product-ses-more text-center loadMoreContainerlogos {{ $countClientLogos <= $clientLogosLimit ? 'd-none' : '' }}">
-            <a href="javascript:void(0)" data-uri="{{ route('home_client_loadmore') }}" class="loadMoreBtnClientLogo" data-maxid="{{ $maxClientLogoId }}" data-limit="{{ $clientLogosLimit }}"> See More Clients </a>
+        <div data-totalcount="{{ $countClientLogos ?? 0 }}" class="product-ses-more text-center mt-5 loadMoreContainerlogos {{ $countClientLogos <= $clientLogosLimit ? 'd-none' : '' }}">
+            <a href="javascript:void(0)" data-uri="{{ route('home_client_loadmore') }}" class="loadMoreBtnClientLogo button-85" data-maxid="{{ $maxClientLogoId }}" data-limit="{{ $clientLogosLimit }}"> See More... </a>
         </div>
 
     </div>

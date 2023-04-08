@@ -1,7 +1,7 @@
 <!-- Main Header-->
-<header class="container-fluid main-header box-shadow" style="background-color:#FCE5CD;box-shadow: 0 0 8px 0 rgba(0,0,0,.4);">
+<header class="main-header box-shadow" style="background-color:#FCE5CD;box-shadow: 0 0 8px 0 rgba(0,0,0,.4);">
 
-    <nav class="navbar navbar-expand-lg navbar-light" style="width: 100% !important; padding-top: 0px; padding-bottom: 0px;">
+    <nav class="navbar navbar-expand-lg navbar-light" style="width: 100% !important; padding-top: 0px; padding-bottom: 0px; background-color: #FCE5CD;">
 
         <div class="container">
             @if (isset($companylogo))
@@ -14,9 +14,15 @@
             </a>
             @endif
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+            
+            <div class="d-flex flex-row align-items-center">
+                <div class="cart-icon cart-icon-mobile">
+                    <a href="{{ route('cart_index') }}"> <i class="fas fa-cart-shopping"></i><span class="cartvalue"> {{ isset($productIds) && is_array($productIds) ? count($productIds) : 0 }} </span></a>
+                </div>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
 
             <div class="collapse navbar-collapse menu" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -53,7 +59,7 @@
                     <div id="my-list"></div>
                 </form>
 
-                <div class="cart-icon">
+                <div class="cart-icon cart-icon-desktop">
                     <a href="{{ route('cart_index') }}"> <i class="fas fa-cart-shopping"></i><span class="cartvalue"> {{ isset($productIds) && is_array($productIds) ? count($productIds) : 0 }} </span></a>
                 </div>
 

@@ -205,7 +205,7 @@ body {
 }
 
 .search-product{
-    border: 1px solid #555;
+    border: 1px solid #e3101c;
 }
 .order-track-input {
     width: 100%;
@@ -289,13 +289,7 @@ textarea.form-control {
 
 /* ----------------------------------------------------------------------------- */
 
-/* Call Center Area */
-.call-center-area {
-    width: 100%;
-    height: auto;
-    position: relative;
-    margin: 70px 0px;
-}
+
 
 .call-center {
     /*width: 689px;*/
@@ -498,11 +492,33 @@ footer {
 
 
 
-
-@media only screen and (max-width:520px) {
+.cart-icon-mobile {
+    display: none;
+}
+@media only screen and (max-width:991px) {
+    .cart-icon-mobile {
+        display: inline;
+    }
+    .cart-icon-desktop{
+        display: none;
+    }
+}
+@media only screen and (max-width:620px) {
     .main-header .navbar-brand .logo {
-        width: 300px;
-        height: 154px;
+        width: 220px;
+        height: 40px;
+    }
+    .main-header .navbar.navbar-light{
+        padding-top: 9px !important;
+    }
+    .sticky {
+        box-shadow: none !important;
+    }
+    .cart-icon-mobile {
+        display: inline;
+    }
+    .cart-icon-desktop{
+        display: none;
     }
 }
 
@@ -513,7 +529,7 @@ footer {
     }
 
     .main-header.box-shadow {
-        box-shadow: 0 0.1rem 1rem #e2e2e2 !important;
+        box-shadow: 0 0 8px 0 rgba(0,0,0,.4);
     }
 
     .top-header {
@@ -557,16 +573,9 @@ footer {
     }
 
     .main-header #navbarSupportedContent {
-        background-color: rgb(241 241 241);
+        background-color: #FCE5CD;
         width: 100%;
-        padding: 15px 20px;
         margin-top: 10px;
-    }
-
-    .ordertraking {
-        margin: 0px !important;
-        margin-top: 15px !important;
-        width: 80% !important;
     }
 
     .cart-icon .cartvalue {
@@ -578,7 +587,7 @@ footer {
         flex-wrap: wrap;
         align-items: center;
         justify-content: center;
-        margin-bottom: 5em !important;
+        margin-bottom: 40px !important;
     }
 
     .product-ses-more a {
@@ -661,6 +670,10 @@ footer {
 
     .navbar-light .navbar-toggler {
         margin-top: 5px !important;
+        margin-left: 20px;
+    }
+    .cart-icon-mobile {
+        margin-top: 9px;
     }
 
 }
@@ -1014,7 +1027,6 @@ footer a:hover{
         width: 100%;
         position: fixed;
         background: #FCE5CD;
-        box-shadow: 0 10px 10px -10px rgba(0,0,0,0.3);
         animation-name: animationFade;
         animation-duration: 1s;
         animation-fill-mode: both;
