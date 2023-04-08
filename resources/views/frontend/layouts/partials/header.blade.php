@@ -1,5 +1,5 @@
 <!-- Main Header-->
-<header class="container-fluid main-header box-shadow" style="background-color:#FCE5CD">
+<header class="container-fluid main-header box-shadow" style="background-color:#FCE5CD;box-shadow: 0 0 8px 0 rgba(0,0,0,.4);">
 
     <nav class="navbar navbar-expand-lg navbar-light" style="width: 100% !important; padding-top: 0px; padding-bottom: 0px;">
 
@@ -46,7 +46,7 @@
                 </ul>
 
                 <form action="{{ route('searchResult') }}" autocomplete="off" class="d-flex justify-content-lg-end justify-content-start" style="position: relative !important;">
-                    <div class="input-group border rounded">
+                    <div class="input-group rounded">
                         <input class="form-control search-product" name="key" type="search" placeholder="Search" aria-label="Search">
                         <button class="btn d-flex justify-content-center" type="submit"><i class="fas fa-search"></i></button>
                     </div>

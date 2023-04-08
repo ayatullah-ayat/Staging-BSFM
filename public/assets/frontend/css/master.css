@@ -1,11 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Mulish:wght@400;500;600;700;800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@400;500;600;700;800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700;800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap');
 
 :root {
-    --default-font-family: 'Montserrat', sans-serif;
+    --default-font-family: 'Mulish', sans-serif;
     --google-primary-font-family: 'Work Sans', sans-serif;
     --google-secondary-font-family: 'Montserrat', sans-serif;
 
@@ -205,6 +204,9 @@ body {
     border: none;
 }
 
+.search-product{
+    border: 1px solid #555;
+}
 .order-track-input {
     width: 100%;
     height: auto;

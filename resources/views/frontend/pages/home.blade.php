@@ -4,9 +4,11 @@
 @section('content')
 
 <!-- Banner Area -->
-<section class="banner-area">
-    <div class="banner-content">
-    </div>
+<section>
+    <picture>
+        <source media="(max-width:700px)" srcset="/assets/frontend/img/banner-mobile.png">
+        <img src="/assets/frontend/img/banner-desktop.png" alt="Flowers" style="width:100%;">
+    </picture>
 </section>
 <!-- Hero Area-->
 <section class="container-fluid hero-area">
@@ -26,11 +28,11 @@
                     </div>
                     <div class="hero-text">
                         <p class="text-justify">
-                        Micromedia is a professional
-Supplier of customised promotional goods,Business gifts,Swag and giveaways.
-We have the largest selection, so you can find right products regarding your purchase requirements.
-We have already supplied many corporate gifts to Local and Multinational clients in all over Bangladesh.
-Micromedia is one of the preferred and reliable company in Bangladesh.
+                            Micromedia is a professional
+                            Supplier of customised promotional goods,Business gifts,Swag and giveaways.
+                            We have the largest selection, so you can find right products regarding your purchase requirements.
+                            We have already supplied many corporate gifts to Local and Multinational clients in all over Bangladesh.
+                            Micromedia is one of the preferred and reliable company in Bangladesh.
                         </p>
                     </div>
                 </div>
