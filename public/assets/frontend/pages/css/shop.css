@@ -97,18 +97,7 @@
     color: #717171 !important;
 } */
 
-.shopping-card-row {
-    width: 100% !important;
-    display: grid !important;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)) !important;
-    gap: 0.2rem;
-    flex-wrap: wrap;
-    position: relative;
-}
 
-.shopping-card-row>div {
-    margin: 0.4em 0;
-}
 
 .childer-category {
     transition: all 300ms ease;
@@ -419,14 +408,31 @@
     background: rgba(0, 0, 0, 0.8) !important;
 }
 
-
+.shopFilter {
+    display: none;
+}
 @media screen and (max-width: 768px) {
 
+    #shopFilterContent {
+        display: none;
+    }
+    .shopFilter {
+        display: block;
+        top: 68px;
+        z-index: 8;
+    }
+    .product-shop-area .container {
+        padding-left: 0;
+        padding-right: 0;
+    }
     .shop-row {
         grid-template-columns: 1fr !important;
         align-items: center !important;
         justify-items: center !important;
         margin: 0 auto;
+    }
+    .shop-sidebar {
+        height: max-content;
     }
 
     .shop-row>div,

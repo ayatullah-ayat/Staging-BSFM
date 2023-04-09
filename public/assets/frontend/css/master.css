@@ -354,6 +354,13 @@ textarea.form-control {
     border: 2px solid #000;
   }
 
+  /* Call Center Area */
+.call-center-area {
+    width: 100%;
+    height: auto;
+    position: relative;
+    margin: 30px 0px;
+}
 
 
 /* --------------------------------- footer area -----------------------------------------------  */
@@ -366,10 +373,10 @@ footer {
 }
 
 .footer-text h2 {
-    font-family: Hind Siliguri;
+    font-family: var(--google-secondary-font-family);
     font-style: normal;
     font-weight: 600;
-    font-size: 12px;
+    font-size: 13px;
     line-height: 197.15%;
     color: rgba(255, 255, 255, 0.9);
 }
@@ -674,6 +681,15 @@ footer {
     }
     .cart-icon-mobile {
         margin-top: 9px;
+    }
+
+    .call-center-area .container {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .call-center-area .call-center h2 {
+        text-align: inherit;
+        padding: 15px 0px;
     }
 
 }

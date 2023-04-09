@@ -1,3 +1,4 @@
+
 <!-- Footer Area-->
 <footer class="container-fluid">
 
@@ -51,7 +52,7 @@
             <div class="col-md-3">
 
                 <div class="footer-text-header">
-                    <h3 class="fw-bold"> কাস্টমাইজ </h3>
+                    <h3 class="fw-bold"> Customize </h3>
                 </div>
 
                 <div class="category-menu">
@@ -70,17 +71,17 @@
             <div class="col-md-3">
 
                 <div class="footer-text-header">
-                    <h3 class="fw-bold"> মেনু </h3>
+                    <h3 class="fw-bold"> Menu </h3>
                 </div>
 
                 <div class="footer-menu">
                     <ul class="list-unstyled">
-                        <li><a href="{{ route('home_index')}}"> কাস্টমাইজ</a></li>
-                        <li><a href="{{ route('shop_index')}}"> শপ</a></li>
-                        <li><a href="{{ route('about_index')}}"> আমাদের সম্পর্কে</a></li>
-                        <li><a href="{{ route('contact_index')}}"> যোগাযোগ করুন </a></li>
-                        <li class="ordertraking-footer"><a href="javascript:void(0)"> অর্ডার ট্র্যাক করুন </a></li>
-                        <li><a href="{{ route('dashboard.index')}}"> একাউন্ট </a></li>
+                        <li><a href="{{ route('home_index')}}"> Customize</a></li>
+                        <li><a href="{{ route('shop_index')}}"> Shop</a></li>
+                        <li><a href="{{ route('about_index')}}"> About</a></li>
+                        <li><a href="{{ route('contact_index')}}"> Contact </a></li>
+                        <li class="ordertraking-footer"><a href="javascript:void(0)"> Track Order </a></li>
+                        <li><a href="{{ route('dashboard.index')}}"> Account </a></li>
                     </ul>
                 </div>
              
@@ -89,7 +90,7 @@
             <div class="col-md-3">
 
                 <div class="footer-text-header">
-                    <h3 class="fw-bold">আমাদের অংগ প্রতিষ্ঠান সমূহ</h3>
+                    <h3 class="fw-bold">Our Member Organization</h3>
                 </div>
 
 
@@ -118,16 +119,16 @@
 
             <div class="col-md-6">
                 <div class="copy-right-footer">
-                    <p> কপিরাইট © ২০২২ মাইক্রোমিডিয়া. সমস্ত অধিকার সংরক্ষিত. </p>
+                    <p> Copyright © 2022 Micromedia. All rights reserved. </p>
                 </div>
             </div>
 
             <div class="col-md-6">
                 <div class="footer-privacy-policy">
                     <ul class="list-unstyled d-flex justify-content-end align-items-start align-items-lg-center flex-column flex-lg-row ">
-                        <li><a href="#"> প্রাইভেসি এন্ড পলিসি </a></li>
-                        <li><a href="#"> টার্মস এন্ড কন্ডিশন </a></li>
-                        <li><a href="#"> সাইটম্যাপ </a></li>
+                        <li><a href="#"> Privacy & Policy </a></li>
+                        <li><a href="#"> Terms & Conditions </a></li>
+                        <li><a href="#"> Sitemap </a></li>
                     </ul>
                 </div>
             </div>

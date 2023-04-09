@@ -3,11 +3,14 @@
 
 @section('content')
 <!-- Product Shop Area-->
+<div class="container bg-dark text-white pt-2 pb-2 shopFilter position-sticky">
+    <button class="btn btn-danger" id="shopFilterBtn">Filter</button>
+</div>
 <section class="container-fluid product-shop-area my-5">
     <div class="container">
         <div class="row">
 
-            <div class="col-md-3">
+            <div class="col-md-3" id="shopFilterContent">
                 <div class="shop-sidebar">
 
                     @includeIf('frontend.layouts.partials.shop_sidebar', [
@@ -21,7 +24,7 @@
             </div>
             <div class="col-md-9">
                 @isset($products)
-                <div class="row shopping-card-row" data-insert="append" data-filter-insert="html">
+                <div class="row gy-3 gx-3" data-insert="append" data-filter-insert="html">
 
                     @php
                     $maxId = 0;
@@ -33,7 +36,7 @@
                     $maxId = $item->id;
                     @endphp
 
-                    <div class="mb-3">
+                    <div class="col-md-3 col-sm-4 col-6">
                         <div class="card __product-card">
                             <div class="card-wishlist {{ in_array($item->id,$wishLists) ? 'removeFromWish' : 'addToWish' }}" data-auth="{{ auth()->user()->id ?? null }}" data-productid="{{ $item->id }}" style="z-index: 100;" type="button"> <i class="fa-solid fa-heart"></i></div>
                             <a href="{{ route('product_detail',$item->id ) }}">
@@ -42,12 +45,12 @@
                             <div class="card-body p-0">
                                 <div class="card-product-title card-title text-center fw-bold">
                                     <a href="{{ route('product_detail',$item->id ) }}" class="text-decoration-none text-dark">
-                                        <h5>{{ $item->product_name }}</h5>
+                                        <h5 data-toggle="tooltip" data-placement="bottom" title="{{ $item->product_name }}">{{ \Str::limit($item->product_name, 15) }}</h5>
                                     </a>
                                 </div>
 
                                 <div class="card-product-price card-text text-center fw-bold">
-                                    <h5>বর্তমান মূুল্য {{ salesPrice($item) ?? '0'}} /=
+                                    <h5>Sale Price {{ salesPrice($item) ?? '0'}} /=
                                         @if($item->product_discount)
                                         <span class="text-decoration-line-through text-danger"> {{ round($item->unit_price,0) ?? '0'}} /=</span>
                                         @endif
@@ -55,8 +58,8 @@
                                 </div>
                                 <div class="card-product-button d-flex justify-content-evenly">
                                     @if($item->total_stock_qty > 0)
-                                    <button type="button" data-productid="{{ $item->id }}" class="btn btn-sm btn-secondary btn-card {{ !in_array($item->id,$productIds) ? 'addToCart' : 'alreadyInCart' }}"> {!! !in_array($item->id,$productIds) ? 'কার্ডে যুক্ত করুন' :'<span>অলরেডি যুক্ত আছে</span>' !!}</button>
-                                    <a href="{{ route('checkout_index',$item->id ) }}?ref={{ uniqid() }}" type="button" class="btn btn-sm btn-danger"> অর্ডার করুন </a>
+                                    <button type="button" data-productid="{{ $item->id }}" class="btn btn-sm btn-secondary btn-card {{ !in_array($item->id,$productIds) ? 'addToCart' : 'alreadyInCart' }}"> {!! !in_array($item->id,$productIds) ? 'Add to Cart' :'<span>Add to Cart</span>' !!}</button>
+                                    <a href="{{ route('checkout_index',$item->id ) }}?ref={{ uniqid() }}" type="button" class="btn btn-sm btn-danger"> Order Now </a>
                                     @else
                                     <span class="text-danger">Out of Stock</span>
                                     @endif
@@ -68,11 +71,23 @@
 
                 </div>
 
-                <div data-totalcount="{{ $countProducts }}" data-ajax-filter="" class="text-center loadMoreContainer {{ $countProducts <= $limit ? 'd-none' : '' }} pt-5">
+                <div data-totalcount="{{ $countProducts }}" data-ajax-filter="" class="text-center loadMoreContainer {{ $countProducts <= $limit ? 'd-none' : '' }} pt-4">
                     {!! loadMoreButton( route('shop_index'),$maxId, $limit) !!}
                 </div>
 
                 @endisset
+                <!-- Our Contact Area-->
+                <section class="container-fluid call-center-area">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12 d-flex align-items-center justify-content-center">
+                                <div class="call-center text-center">
+                                    <h2 class="text-capitalize">You didn't find what you were looking for? Please Call:<span> <a href="tel:01971819813" class="text-decoration-none" type="button">0197-1819-813</a></span></h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </div>
 
 
@@ -80,20 +95,6 @@
     </div>
 </section>
 
-
-
-<!-- Our Contact Area-->
-<section class="container-fluid call-center-area">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 d-flex align-items-center justify-content-center">
-                <div class="call-center text-center">
-                    <h2> আপনি যা খুঁজছিলেন তা খুঁজে পাননি? কল করুন:<span> <a href="tel:01971819813" class="text-decoration-none" type="button">০১৯৭-১৮১৯-৮১৩</a></span></h2>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
 @endsection
 
@@ -120,11 +121,12 @@
         $(document).ready(function() {
             // Get all the accordion items
             var accordionItems = $('.accordion .collapse');
-
             // Open each item
             accordionItems.each(function() {
                 $(this).collapse('show');
             });
+
+            $(document).on('click', '#shopFilterBtn', showFilterContent);
         });
 
         // ============Range Slider ================== 
@@ -151,6 +153,10 @@
 
     });
 
+    function showFilterContent() {
+        console.log('shopFilterBtn clicked');
+        $('#shopFilterContent').toggle();
+    }
 
     function selectColor() {
         let
