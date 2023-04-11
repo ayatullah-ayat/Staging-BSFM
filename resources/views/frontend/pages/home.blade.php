@@ -75,9 +75,9 @@
                     </div>
 
                     <div class="product-details text-center">
-                        <h3 class="product-title"> {{ \Illuminate\Support\Str::limit($customservicecategory->category_name, 8)  }} </h3>
-                        <p class="product-text"> {{ \Illuminate\Support\Str::limit($customservicecategory->category_description, 30)  }} </p>
-                        <a href="javascript:void(0)" id="category_id" data-categoryid="{{$customservicecategory->id}}" type="button" class="product-button customize-btn"> কাস্টমাইজ করুন </a>
+                        <h3 class="product-title" data-toggle="tooltip" data-placement="bottom" title="{{ $customservicecategory->category_name }}"> {{ \Illuminate\Support\Str::limit($customservicecategory->category_name, 8)  }} </h3>
+                        <p class="product-text" data-toggle="tooltip" data-placement="bottom" title="{{ $customservicecategory->category_description }}"> {{ \Illuminate\Support\Str::limit($customservicecategory->category_description, 30)  }} </p>
+                        <a href="javascript:void(0)" id="category_id" data-categoryid="{{$customservicecategory->id}}" data-categoryName="{{ $customservicecategory->category_name }}" type="button" class="product-button customize-btn">Customize</a>
                     </div>
 
                 </div>

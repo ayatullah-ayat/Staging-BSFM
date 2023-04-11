@@ -131,7 +131,7 @@
             <div class="modal-content modal-dialog-scrollable">
 
                 <div class="modal-header">
-                    <h5 class="modal-title text-center" id="exampleModalLabel "> আপনার পছন্দের টি-শার্ট নির্ধারণ করুন! </h5>
+                    <h5 class="modal-title choose-product" id="exampleModalLabel " style="margin-left: 0px;"> Choose Your Product </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
@@ -341,6 +341,7 @@
         let
             elem = $(this),
             category_id = elem.attr('data-categoryid');
+            category_name = elem.attr('data-categoryName');
 
         $.ajax({
             url: `{{ route('customize.getCustomizeProduct','')}}/${category_id}`,
@@ -374,7 +375,8 @@
 
                     cssStyle = ['grid-template-columns', 'repeat(1, 1fr)'];
                 }
-
+                let categoryNameHtml = `Please Choose Your <span class="text-warning">${category_name}</span>`;
+                $('#customProductModal .choose-product').html(categoryNameHtml);
                 $('.grid-product-container').html(products)
                 $('.grid-product-container').css(cssStyle[0], cssStyle[1]);
                 $('#customProductModal').modal('show')
