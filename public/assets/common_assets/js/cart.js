@@ -1,7 +1,7 @@
 const APP_URL = window.location.origin;
 
 $(document).ready(function(){
-    $(document).on('click', '.addToCart', addToCart)
+    $(document).on('click', '.addToCart', openAddToCartModal)
     $(document).on('click', '.removeFromCart', removeFromCart)
     $(document).on('click', '.removeFromCheckout', removeFromCartAndCheckout)
     $(document).on('click', '.alreadyInCart', alreadyInCart)
@@ -12,6 +12,63 @@ $(document).ready(function(){
 function alreadyInCart(){
     alert('অলরেডি কার্ডে যুক্ত আছে')
     return false;
+}
+
+function openAddToCartModal(e){
+    let 
+    elem        = $(this),
+    id          = elem.attr('data-productid');
+    displayVariants(id);
+    
+}
+
+function clearVariants(){
+    $('.cart_color_container').empty();
+    $('.cart_size_container').empty();
+}
+
+function displayVariants(product_id){
+    clearVariants();
+    $.ajax({
+        type: 'get',
+        url: APP_URL + '/product/get-variants?product_id=' + product_id,
+        success: function(res) {
+            let colors = res.colors;
+            let sizes = res.sizes;
+            let colorHtml = '';
+            let sizeHtml = '';
+
+            colors.forEach((color, index) => {
+                colorHtml += `
+                        <div type="button" 
+                            data-color="${color.color_name  ?? ''}" 
+                            class="col-md-2 col-1 color ${color.color_name == 'White' ? 'black' : ''}" style="background-color: ${color.color_name }; ${color.color_name == 'White' ? 'box-shadow: 0px 0px 2px #000;': '' }"> 
+                            <i class="fa-solid fa-check"></i>
+                        </div>
+                        `;
+            });
+
+
+
+            sizes.forEach((size, index) => {
+                sizeHtml += `
+                        <div type="button" 
+                            data-size="${size.size_name  ?? ''}" 
+                            class="col-md-2 col-1 size"> 
+                            <span>${size.size_name  ?? ''}</span>
+                        </div>
+                `;
+            });
+            $('.cart_color_container').append(colorHtml);
+            $('.cart_size_container').append(sizeHtml);
+            $('#addToCartModal').modal('show');
+
+        },
+        error: function(err){
+            console.log(err);
+            alert(err)
+        }
+    })
 }
 
 // console.log(APP_URL);

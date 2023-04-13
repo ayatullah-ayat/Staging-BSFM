@@ -298,6 +298,27 @@
     </div>
 </div>
 
+<!-- ------------------ Customize Product Modal -------------------  -->
+<div class="modal fade" style="z-index: 22001;" id="customProductModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content modal-dialog-scrollable">
+
+            <div class="modal-header">
+                <h5 class="modal-title choose-product" id="exampleModalLabel " style="margin-left: 0px;"> Choose Your Product </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+
+                <div class="grid-product-container"> </div>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
 
 @endsection
 
@@ -389,7 +410,7 @@
 @push('js')
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", function() {
-
+        $(document).on('click', '.customize-btn', loadCustomizeProduct)
         let acessToAds = @json($ad && $ad -> is_publish);
 
         if (acessToAds) {
@@ -427,6 +448,53 @@
         });
 
     });
+
+    function loadCustomizeProduct() {
+        let
+            elem = $(this),
+            category_id = elem.attr('data-categoryid');
+        category_name = elem.attr('data-categoryName');
+
+        $.ajax({
+            url: `{{ route('customize.getCustomizeProduct','')}}/${category_id}`,
+            method: 'GET',
+            beforeSend() {
+                console.log('sending ...');
+            },
+            success(data) {
+                console.log(data);
+                let
+                    cssStyle = '',
+                    products = ``;
+                if (data.length) {
+                    data.forEach(item => {
+                        let productImage = item?.product_thumbnail ?? 'assets/frontend/img/product/product-1.png';
+                        products += `<div class="card-box customize-product-box" data-href="${window.location.origin}/customize/custom-order/${item.id}">
+                            <div class="card modal-card text-center">
+                                <img class="pt-3" src="${window.location.origin}/${productImage}" alt="Product Image">
+                                <p> ${item?.product_name ?? 'N/A'} </p>
+                            </div>
+                        </div>`;
+                    });
+                    cssStyle = ['grid-template-columns', 'repeat(auto-fill, minmax(160px, 1fr))'];
+                } else {
+                    products += `<div class="row">
+                        <div class="alert alert-danger my-3">
+                            <h4>404</h4>
+                            <p>Oops! No Product Found For The category!</p>
+                        </div>
+                    </div>`;
+
+                    cssStyle = ['grid-template-columns', 'repeat(1, 1fr)'];
+                }
+                let categoryNameHtml = `Please Choose Your <span class="text-warning">${category_name}</span>`;
+                $('#customProductModal .choose-product').html(categoryNameHtml);
+                $('.grid-product-container').html(products)
+                $('.grid-product-container').css(cssStyle[0], cssStyle[1]);
+                $('#customProductModal').modal('show')
+            }
+        });
+    }
 </script>
 
 <script>

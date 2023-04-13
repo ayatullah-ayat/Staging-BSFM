@@ -99,6 +99,8 @@ Route::group(['prefix' => ''],function(){
     Route::post('/add-to-cart',             [CartController::class, 'addToCart'])->name('add_to_cart');
     Route::post('/remove-from-cart',        [CartController::class, 'removeFromCart'])->name('removeFromCart');
     Route::post('/update-cart-qty',         [CartController::class, 'updateCartProductQty'])->name('updateCartProductQty');
+
+    Route::get('/product/get-variants',     [ShopController::class, 'getVariants'])->name('get_variants');
     
     Route::post('/add-to-wish',             [WishListController::class, 'addToWish'])->name('addToWish');
     Route::post('/remove-from-wish',        [WishListController::class, 'removeFromWish'])->name('removeFromWish');

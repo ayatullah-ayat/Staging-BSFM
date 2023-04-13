@@ -58,7 +58,9 @@
                                 </div>
                                 <div class="card-product-button d-flex justify-content-evenly">
                                     @if($item->total_stock_qty > 0)
-                                    <button type="button" data-productid="{{ $item->id }}" class="btn btn-sm btn-secondary btn-card {{ !in_array($item->id,$productIds) ? 'addToCart' : 'alreadyInCart' }}"> {!! !in_array($item->id,$productIds) ? 'Add to Cart' :'<span>Add to Cart</span>' !!}</button>
+                                    <button type="button" data-productid="{{ $item->id }}" class="btn btn-sm btn-secondary btn-card {{ !in_array($item->id,$productIds) ? 'addToCart' : 'alreadyInCart' }}">
+                                        {!! !in_array($item->id,$productIds) ? 'Add to Cart' :'<span>Add to Cart</span>' !!}
+                                    </button>
                                     <a href="{{ route('checkout_index',$item->id ) }}?ref={{ uniqid() }}" type="button" class="btn btn-sm btn-danger"> Order Now </a>
                                     @else
                                     <span class="text-danger">Out of Stock</span>
@@ -95,6 +97,44 @@
     </div>
 </section>
 
+<!-- Add to Cart Modal -->
+<div class="modal fade" id="addToCartModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <div class="single-prodect-color">
+                    <!-- <div class="spacer"></div> -->
+                    <h3>Select Color</h3>
+
+                    {{-- @dd($product->productColors) --}}
+                    <div class="ms-2 row cart_color_container" style="margin-left: -0.5rem!important;">
+                        
+                    </div>
+                </div>
+
+                <div class="single-prodect-size">
+                    <h3>Select Size</h3>
+                    <div class="row" style="margin-left: -0.5rem!important;">
+                        <div class="ms-2 row cart_size_container" style="margin-left: -0.5rem!important;">
+                            
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 @endsection
 
@@ -111,6 +151,10 @@
         $(document).on("change", '.category_container input[name="category"]', filterBy)
 
         $(document).on("click", '.color_container .color', selectColor)
+        $(document).on("click", '.cart_color_container .color', selectCartColor)
+        $(document).on("click", '.cart_size_container .size', selectCartSize)
+
+
         $(document).on("click", '.size_container .size', selectSize)
         $(document).on("click", '.filterTagName', selectTag)
 
@@ -166,6 +210,20 @@
         filterBy();
 
         // updateSelectedStatus();
+    }
+    function selectCartColor() {
+        let currentElem = $(this);
+
+        $(document).find('.cart_color_container .color').removeClass('selected');
+        currentElem.toggleClass('selected')
+    }
+
+    function selectCartSize(){
+        let currentElem = $(this);
+
+        $(document).find('.cart_size_container .size').removeClass('selected');
+
+        currentElem.toggleClass('selected');
     }
 
     function selectSize() {

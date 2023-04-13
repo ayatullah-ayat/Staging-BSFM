@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Services\ProductSearch;
+use App\Models\ProductColor;
 
 class ShopController extends Controller
 {
@@ -82,6 +83,15 @@ class ShopController extends Controller
     }
 
 
+    public function getVariants(Request $request){
+        $product = Product::where('id', $request->product_id)->first();
+        
+        return response()->json([
+            'colors' => $product->productColors,
+            'sizes' => $product->productSizes,
+        ]);
+
+    }
     public function ajaxFilter()
     {
         $limit          = $this->limit;
@@ -224,7 +234,6 @@ class ShopController extends Controller
                         ->where('is_active', 1)
                         ->where('is_publish', 1)
                         ->get();
-
         return view('frontend.pages.product_detail', compact('product', 'otherProducts'));
     }
 
