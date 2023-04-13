@@ -87,6 +87,7 @@ class ShopController extends Controller
         $product = Product::where('id', $request->product_id)->first();
         
         return response()->json([
+            'product' => $product,
             'colors' => $product->productColors,
             'sizes' => $product->productSizes,
         ]);

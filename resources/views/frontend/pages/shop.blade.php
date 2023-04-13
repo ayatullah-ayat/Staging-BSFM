@@ -58,7 +58,7 @@
                                 </div>
                                 <div class="card-product-button d-flex justify-content-evenly">
                                     @if($item->total_stock_qty > 0)
-                                    <button type="button" data-productid="{{ $item->id }}" class="btn btn-sm btn-secondary btn-card {{ !in_array($item->id,$productIds) ? 'addToCart' : 'alreadyInCart' }}">
+                                    <button type="button" data-productid="{{ $item->id }}" class="btn btn-sm btn-secondary btn-card {{ !in_array($item->id,$productIds) ? 'openCartModal' : 'alreadyInCart' }}">
                                         {!! !in_array($item->id,$productIds) ? 'Add to Cart' :'<span>Add to Cart</span>' !!}
                                     </button>
                                     <a href="{{ route('checkout_index',$item->id ) }}?ref={{ uniqid() }}" type="button" class="btn btn-sm btn-danger"> Order Now </a>
@@ -101,35 +101,41 @@
 <div class="modal fade" id="addToCartModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
+            
             <div class="modal-body">
-
-                <div class="single-prodect-color">
-                    <!-- <div class="spacer"></div> -->
-                    <h3>Select Color</h3>
-
-                    {{-- @dd($product->productColors) --}}
-                    <div class="ms-2 row cart_color_container" style="margin-left: -0.5rem!important;">
-                        
-                    </div>
+                <div class="text-end">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
+                <div class="row">
+                    <div class="col-5">
+                        <p class="product-cart-description text-capitalize">product description</p>
+                        <img class="img-fluid product-cart-image" src="https://images.pexels.com/photos/341523/pexels-photo-341523.jpeg" alt="">
+                    </div>
+                    <div class="col-1"></div>
+                    <div class="col-6">
+                        <div class="single-prodect-color">
+                            <!-- <div class="spacer"></div> -->
+                            <h3 class="mt-0">Select Color</h3>
+                            <div class="ms-2 row cart_color_container" style="margin-left: -0.5rem!important;">
 
-                <div class="single-prodect-size">
-                    <h3>Select Size</h3>
-                    <div class="row" style="margin-left: -0.5rem!important;">
-                        <div class="ms-2 row cart_size_container" style="margin-left: -0.5rem!important;">
-                            
+                            </div>
+                        </div>
+
+                        <div class="single-prodect-size">
+                            <h3 class="mt-0">Select Size</h3>
+                            <div class="row" style="margin-left: -0.5rem!important;">
+                                <div class="ms-2 row cart_size_container" style="margin-left: -0.5rem!important;">
+
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+            <div class="modal-footer" style="justify-content: space-between; padding: 0;">
+                <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-warning btn-sm addToCart">Add to Cart</button>
             </div>
         </div>
     </div>
@@ -211,6 +217,7 @@
 
         // updateSelectedStatus();
     }
+
     function selectCartColor() {
         let currentElem = $(this);
 
@@ -218,7 +225,7 @@
         currentElem.toggleClass('selected')
     }
 
-    function selectCartSize(){
+    function selectCartSize() {
         let currentElem = $(this);
 
         $(document).find('.cart_size_container .size').removeClass('selected');

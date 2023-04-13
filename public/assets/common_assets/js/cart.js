@@ -1,7 +1,8 @@
 const APP_URL = window.location.origin;
 
 $(document).ready(function(){
-    $(document).on('click', '.addToCart', openAddToCartModal)
+    $(document).on('click', '.openCartModal', openAddToCartModal);
+    $(document).on('click', '.addToCart', addToCart);
     $(document).on('click', '.removeFromCart', removeFromCart)
     $(document).on('click', '.removeFromCheckout', removeFromCartAndCheckout)
     $(document).on('click', '.alreadyInCart', alreadyInCart)
@@ -10,7 +11,7 @@ $(document).ready(function(){
 
 
 function alreadyInCart(){
-    alert('অলরেডি কার্ডে যুক্ত আছে')
+    alert('Already In Cart')
     return false;
 }
 
@@ -35,9 +36,12 @@ function displayVariants(product_id){
         success: function(res) {
             let colors = res.colors;
             let sizes = res.sizes;
+            let product = res.product;
             let colorHtml = '';
             let sizeHtml = '';
 
+            $('.product-cart-description').text(product.product_name);
+            $('.product-cart-image').attr('src', APP_URL + '/' + product.product_thumbnail_image);
             colors.forEach((color, index) => {
                 colorHtml += `
                         <div type="button" 
@@ -75,10 +79,26 @@ function displayVariants(product_id){
 
 function addToCart(e) {
 
+    // validation
+    let selectedColorElem = $(document).find('.single-prodect-color .color.selected');
+    let selectedSizeElem = $(document).find('.single-prodect-size .size.selected');
+
+    if(selectedColorElem.length === 0){
+        alert('Please Select Color');
+        return;
+    }else if(selectedSizeElem.length === 0){
+        alert('Please Select Size');
+        return;
+    }
+
     let 
-    elem        = $(this),
+    elem        = $('.openCartModal'),
     id          = elem.attr('data-productid'),
-    cartBadge   = $('.cartvalue');
+    cartBadge   = $('.cartvalue'),
+    selectedColor = selectedColorElem.attr('data-color'),
+    selectedSize = selectedSizeElem.attr('data-size');
+
+    console.log('product_id', id);
 
     $.ajax({
         headers: {
@@ -86,30 +106,15 @@ function addToCart(e) {
         },
         type    : "post",
         url     : APP_URL + '/add-to-cart',
-        data    : { productId: id },
+        data    : { productId: id, color: selectedColor, size: selectedSize},
         dataType: 'html',
         cache   : false,
         success : function (items) {
-
-            // <i class=\'fa fa-circle-check\'></i> 
-
-            elem.html('<span>অলরেডি যুক্ত আছে</span>');
-            elem.removeClass('addToCart');
-            elem.addClass('alreadyInCart');
-              
             let products = JSON.parse(items);
             if (!Array.isArray(products)){
                 products = Object.entries(products);
             }
-
             cartBadge.html(products.length || 1);
-
-            if(!elem?.attr('data-detail')){
-                setTimeout(function(){
-                    open(`${location.origin}/shop/${id}`,'_self')
-                },500)
-            }
-
 
         },
         error   : function (xhr, status, error) {

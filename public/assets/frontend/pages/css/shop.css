@@ -172,17 +172,17 @@
     font-family: var(--google-secondary-font-family);
     font-style: normal;
     font-weight: bold;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 26px;
     letter-spacing: -0.02em;
     color: rgba(0, 0, 0, 0.8);
-    margin: 25px 0px 5px 0px;
+    margin: 25px 0px 0px 0px;
 }
 
 .color,
 .size {
-    height: 40px;
-    width: 48px;
+    height: 31px;
+    width: 34px;
     max-width: 60px;
     margin: 5px;
     border-radius: 5px;
@@ -410,6 +410,10 @@
 
 .shopFilter {
     display: none;
+}
+
+.product-cart-description {
+    font-size: .775rem;
 }
 @media screen and (max-width: 768px) {
 
