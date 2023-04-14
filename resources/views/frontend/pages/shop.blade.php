@@ -1,6 +1,5 @@
 @extends('frontend.layouts.master')
 @section('title','Shop')
-
 @section('content')
 <!-- Product Shop Area-->
 <div class="container bg-dark text-white pt-2 pb-2 shopFilter position-sticky">
@@ -101,7 +100,7 @@
 <div class="modal fade" id="addToCartModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            
+
             <div class="modal-body">
                 <div class="text-end">
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -157,11 +156,14 @@
         $(document).on("change", '.category_container input[name="category"]', filterBy)
 
         $(document).on("click", '.color_container .color', selectColor)
+        $(document).on("click", '.size_container .size', selectSize)
+
+
         $(document).on("click", '.cart_color_container .color', selectCartColor)
         $(document).on("click", '.cart_size_container .size', selectCartSize)
 
+        $(document).on('click', '.addToCart', addToCart);
 
-        $(document).on("click", '.size_container .size', selectSize)
         $(document).on("click", '.filterTagName', selectTag)
 
         $(document).on("click", '.parentCategory', toggleChildrenCategories)
@@ -233,6 +235,26 @@
         currentElem.toggleClass('selected');
     }
 
+    function updateSelectedStatus(product_id) {
+
+        const cartItemsQty = @json($cartQtys ?? []);
+        const color = $(document).find('.cart_color_container .color.selected').attr('data-color');
+        const size = $(document).find('.cart_size_container .size.selected').attr('data-size');
+
+        let obj = {
+            product_id,
+            qty: 1,
+            color,
+            size,
+        };
+
+        let cartQtys = cartItemsQty.filter(singleOne => (singleOne?.product_id != product_id));
+        cartQtys.push(obj);
+
+        updateCartQty(cartQtys);
+        console.log('cart Updated', cartQtys);
+    }
+
     function selectSize() {
         let
             currentElem = $(this);
@@ -265,6 +287,56 @@
         }
     }
 
+    function addToCart(e) {
+
+        // validation
+        let selectedColorElem = $(document).find('.single-prodect-color .color.selected');
+        let selectedSizeElem = $(document).find('.single-prodect-size .size.selected');
+
+        if (selectedColorElem.length === 0) {
+            alert('Please Select Color');
+            return;
+        } else if (selectedSizeElem.length === 0) {
+            alert('Please Select Size');
+            return;
+        }
+
+        let
+            elem = $('.openCartModal'),
+            id = elem.attr('data-productid'),
+            cartBadge = $('.cartvalue'),
+            selectedColor = selectedColorElem.attr('data-color'),
+            selectedSize = selectedSizeElem.attr('data-size');
+
+        console.log('product_id', id);
+
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            type: "post",
+            url: APP_URL + '/add-to-cart',
+            data: {
+                productId: id
+            },
+            dataType: 'html',
+            cache: false,
+            success: function(items) {
+                let products = JSON.parse(items);
+                if (!Array.isArray(products)) {
+                    products = Object.entries(products);
+                }
+                cartBadge.html(products.length || 1);
+                updateSelectedStatus(id);
+
+            },
+            error: function(xhr, status, error) {
+                console.log("An AJAX error occured: " + status + "\nError: " + error);
+            }
+        });
+
+
+    }
 
     function incrementDecrementCount(e) {
         let

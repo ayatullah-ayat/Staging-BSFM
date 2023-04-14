@@ -2,7 +2,6 @@ const APP_URL = window.location.origin;
 
 $(document).ready(function(){
     $(document).on('click', '.openCartModal', openAddToCartModal);
-    $(document).on('click', '.addToCart', addToCart);
     $(document).on('click', '.removeFromCart', removeFromCart)
     $(document).on('click', '.removeFromCheckout', removeFromCartAndCheckout)
     $(document).on('click', '.alreadyInCart', alreadyInCart)
@@ -76,56 +75,6 @@ function displayVariants(product_id){
 }
 
 // console.log(APP_URL);
-
-function addToCart(e) {
-
-    // validation
-    let selectedColorElem = $(document).find('.single-prodect-color .color.selected');
-    let selectedSizeElem = $(document).find('.single-prodect-size .size.selected');
-
-    if(selectedColorElem.length === 0){
-        alert('Please Select Color');
-        return;
-    }else if(selectedSizeElem.length === 0){
-        alert('Please Select Size');
-        return;
-    }
-
-    let 
-    elem        = $('.openCartModal'),
-    id          = elem.attr('data-productid'),
-    cartBadge   = $('.cartvalue'),
-    selectedColor = selectedColorElem.attr('data-color'),
-    selectedSize = selectedSizeElem.attr('data-size');
-
-    console.log('product_id', id);
-
-    $.ajax({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        type    : "post",
-        url     : APP_URL + '/add-to-cart',
-        data    : { productId: id, color: selectedColor, size: selectedSize},
-        dataType: 'html',
-        cache   : false,
-        success : function (items) {
-            let products = JSON.parse(items);
-            if (!Array.isArray(products)){
-                products = Object.entries(products);
-            }
-            cartBadge.html(products.length || 1);
-
-        },
-        error   : function (xhr, status, error) {
-            console.log("An AJAX error occured: " + status + "\nError: " + error);
-        }
-    });
-
-
-} 
-
-
 
 function removeFromCart(e) {
 
@@ -247,10 +196,12 @@ function cartOverview() {
 
     [...rows].forEach(row => {
         let product_id= $(row).find('.count').attr('data-productid');
+        let color = $(row).find('.product-color').attr('data-color');
+        let size = $(row).find('.product-size').attr('data-size');
         let itemCount = Number($(row).find('.count').text() ?? 0);
         let itemPrice = Number($(row).find('.Sale_Price').attr('data-salesprice') ?? 0);
         totalProduct += itemPrice * itemCount;
-        let cartQtyObj = { product_id, qty: itemCount };
+        let cartQtyObj = { product_id, qty: itemCount, color, size };
         cartItemsQty.push(cartQtyObj);
     })
 
@@ -339,7 +290,7 @@ function checkoutOverview() {
         let itemCount = Number($(row).find('.count').text() ?? 0);
         let itemPrice = Number($(row).find('.Sale_Price').attr('data-salesprice') ?? 0);
         totalProduct += itemPrice * itemCount;
-        let cartQtyObj = { product_id, qty: itemCount };
+        let cartQtyObj = { product_id, qty: itemCount};
         cartItemsQty.push(cartQtyObj);
     })
 

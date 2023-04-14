@@ -2,9 +2,6 @@
 @section('title','Your Cart')
 
 @section('content')
-
-{{-- @dd($cartQtys) --}}
-
 <!-- Cart Area-->
 <section class="product-cart-area">
     <div class="container">
@@ -14,10 +11,12 @@
                     <table class="table table-borderless table-sm">
                         <!-- --------------------- heading -------------------  -->
                         <tr class="bg-danger cart-header">
-                            <th> প্রোডাক্ট </th>
-                            <th class="text-center"> মূল্য(৳) </th>
-                            <th class="text-center"> পরিমান </th>
-                            <th class="text-right"> মোট মূল্য(৳) </th>
+                            <th>Product</th>
+                            <th>Color</th>
+                            <th>Size</th>
+                            <th class="text-center"> Price(Tk) </th>
+                            <th class="text-center"> Amount </th>
+                            <th class="text-right"> Total(Tk) </th>
                         </tr>
                         <!-- --------------------- heading -------------------  -->
 
@@ -30,12 +29,18 @@
                             
                             @foreach ($cartProducts as $key => $item)
 
-                               @php $productQty = 1; @endphp
+                                @php 
+                                    $productQty = 1;
+                                    $productColor = null;
+                                    $productSize = null;
+                                @endphp
 
                                 @foreach ($cartQtys as $cartQty)
                                     @php
                                         if(isset($cartQty['product_id']) && $cartQty['product_id'] == $item->id){
                                             $productQty = (int)$cartQty['qty'] ?? 1;
+                                            $productColor = $cartQty['color'] ?? null;
+                                            $productSize = $cartQty['size'] ?? null;
                                             break;
                                         }
                                     @endphp
@@ -50,6 +55,8 @@
                                        <a href="{{ route('product_detail',$item->id ) }}" class="text-decoration-none"> <p class="text-dark">{{ $item->product_name ?? 'N/A' }}</p></a>
                                     </div>
                                 </td>
+                                <td class="align-middle product-color" data-color="{{ $productColor }}">{{ $productColor }}</td>
+                                <td class="align-middle product-size" data-size="{{ $productSize }}">{{ $productSize }}</td>
                                 <td class="text-center align-middle Sale_Price" data-salesprice={{ salesPrice($item) ?? 0.0 }}> {{ salesPrice($item) ?? 0.0 }} </td>
                                 <td class="text-center align-middle btn-qty-cell">
                                     <div class="btn-group" role="group">
@@ -81,20 +88,20 @@
                         <!-- -------------------- footer ---------------------------  -->
                         @if(isset($cartProducts) && count($cartProducts))
                         <tr class="fw-bold grandTotalSection">
-                            <td colspan="3" class="text-dark text-end"> <span>সর্বমোট</span></td>
+                            <td colspan="3" class="text-dark text-end"> <span>Grand Total</span></td>
                             <td class="px-2" id="grandTotal"> {{ $grandTotal }} </td>
                         </tr>
                         <tr class="cart-checkout-footer" data-shopuri="{{ route('shop_index') }}">
                             <td colspan="2"></td>
                             <td colspan="2">
-                                <a href="{{ route('checkout_index') }}" class="btn btn-danger btn-sm text-decoration-none text-white w-100">চেক আউট</a>
+                                <a href="{{ route('checkout_index') }}" class="btn btn-danger btn-sm text-decoration-none text-white w-100">CheckOut</a>
                             </td>
                         </tr>
                         @else 
                         <tr>
                             <td colspan="2"></td>
                             <td colspan="2">
-                                <a href="{{ route('shop_index') }}" class="btn btn-danger btn-sm text-decoration-none text-white w-100">কেনাকাটা করুন</a>
+                                <a href="{{ route('shop_index') }}" class="btn btn-danger btn-sm text-decoration-none text-white w-100">Buy</a>
                             </td>
                         </tr>
                         @endif 
@@ -109,16 +116,18 @@
 
 <!-- Our Contact Area-->
 <section class="container-fluid call-center-area">
+
     <div class="container">
         <div class="row">
             <div class="col-md-12 d-flex align-items-center justify-content-center">
                 <div class="call-center text-center">
-                    <h2> আপনি যা খুঁজছিলেন তা খুঁজে পাননি? কল করুন:<span> <a href="tel:01971819813"
-                                class="text-decoration-none" type="button">০১৯৭-১৮১৯-৮১৩</a></span></h2>
+                    <h2 class="text-capitalize">You didn't find what you were looking for? Please Call:<span> <a href="tel:01971819813" class="text-decoration-none" type="button">0197-1819-813</a></span></h2>
                 </div>
+
             </div>
         </div>
     </div>
+
 </section>
 
 @endsection
