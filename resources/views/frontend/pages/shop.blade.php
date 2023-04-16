@@ -158,6 +158,15 @@
         $(document).on("click", '.color_container .color', selectColor)
         $(document).on("click", '.size_container .size', selectSize)
 
+        $('#addToCartModal').on('hide.bs.modal', function(e) {
+            if (e.target === this) {
+                $(this).addClass('fadeOutUp');
+                setTimeout(() => {
+                    $(this).modal('hide').removeClass('fadeOutUp');
+                }, 500);
+            }
+        });
+
 
         $(document).on("click", '.cart_color_container .color', selectCartColor)
         $(document).on("click", '.cart_size_container .size', selectCartSize)
@@ -308,8 +317,6 @@
             selectedColor = selectedColorElem.attr('data-color'),
             selectedSize = selectedSizeElem.attr('data-size');
 
-        console.log('product_id', id);
-
         $.ajax({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -328,6 +335,8 @@
                 }
                 cartBadge.html(products.length || 1);
                 updateSelectedStatus(id);
+
+                $('#addToCartModal').modal('hide');
 
             },
             error: function(xhr, status, error) {

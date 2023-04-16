@@ -209,6 +209,22 @@
     color: #000 !important;
 }
 
+.fadeOutUp {
+    animation-name: fadeOutUp;
+    animation-duration: 0.5s; /* Change this value as needed */
+  }
+  
+  @keyframes fadeOutUp {
+    from {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    to {
+      opacity: 0;
+      transform: translate(60%, -50%);
+    }
+  }
+  
 
 .size {
     padding: 0px !important;
