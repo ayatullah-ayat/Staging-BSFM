@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Cookie;
 use App\Http\Requests\CustomOrderRequest;
 use App\Models\Custom\CustomServiceOrder;
+use Devfaysal\BangladeshGeocode\Models\Division;
 
 class OrderController extends Controller
 {
@@ -32,6 +33,8 @@ class OrderController extends Controller
     public function index(Product $product)
     {
 
+        $cities = Division::all();
+
         $cartProducts = null;
         $productIds = Cookie::get('productIds');
         if (!is_null($productIds)) {
@@ -43,7 +46,7 @@ class OrderController extends Controller
 
         $coupon = Coupon::where('status', 1)->get();
         // dd($coupon);
-        return view('frontend.pages.checkout', compact('product', 'cartProducts','coupon'));
+        return view('frontend.pages.checkout', compact('product', 'cartProducts','coupon', 'cities'));
         //checkout
     }
 

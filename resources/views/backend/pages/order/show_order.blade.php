@@ -79,7 +79,7 @@
                     <p>Order Date :</p>
                     <p>Payment Method :</p>
                 </td>
-                <td style="width: calc(50%% - 25%);text-align: right;vertical-align: bottom">
+                <td style="width: calc(50% - 25%);text-align: right;vertical-align: bottom">
                     <p>{{ $order->order_no ?? '' }}</p>
                     <p>{{ $order->order_date ?? '' }}</p>
                     <p>{{ $order->payment_method ?? 'Cash on Delivery' }}</p>
@@ -87,8 +87,6 @@
             </tr>
         </table>
     </htmlpageheader>
-
-    {{-- @dd($order->order_no) --}}
 
     {{-- <htmlpagefooter name="myfooter">
         <div style="border-top: 1px solid #000000; font-size: 9pt; text-align: center; padding-top: 3mm; ">
@@ -191,8 +189,6 @@
         </tbody>
     </table>
     <br />
-
-    {!! pdfFooter($organizationlogo) !!}
 
 </body>
 
