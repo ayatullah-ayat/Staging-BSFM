@@ -313,6 +313,7 @@ function getCompanyProfile(){
 
 function pdfFooter($organizationlogo=null){
 
+    dd('pdfFooter');
     $url = url('/');
     $html = "";
 

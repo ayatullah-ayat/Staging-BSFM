@@ -192,32 +192,32 @@ class OrderController extends Controller
      */
     public function show(Order $order, Notification $notification)
     {
-        // try{
+        // return view('backend.pages.order.pdf_generate', compact('order'));
+        try{
 
-        //     $this->markAsRead($notification);
+            $this->markAsRead($notification);
 
-        //     // dd($order);
+            // dd($order);
+            
 
-        //     $pdf = PDF::loadView('backend.pages.order.show_order', compact('order'), [], [
-        //             'margin_left'   => 20,
-        //             'margin_right'  => 15,
-        //             'margin_top'    => 48,
-        //             'margin_bottom' => 25,
-        //             'margin_header' => 10,
-        //             'margin_footer' => 10,
-        //             'watermark'     => $this->setWaterMark($order),
-        //         ]);
-
-
-        //     dd($pdf);
-
-        //     return $pdf->stream('order_invoice_' . preg_replace("/\s/", '_', ($order->customer_name ?? '')) . '_' . ($order->order_date ?? '') . '_.pdf');
-        // }catch(Exception $e){
-        //     dd($e->getMessage());
-        // }
+            $pdf = PDF::loadView('backend.pages.order.pdf_generate', compact('order'), [], [
+                    'margin_left'   => 8,
+                    'margin_right'  => 1,
+                    'margin_top'    => 38,
+                    'margin_bottom' => 25,
+                    'margin_header' => 12,
+                    'margin_footer' => 10,
+                ]);
 
 
-        return view('backend.pages.order.show_order', compact('order'));
+
+            return $pdf->stream('order_invoice_' . preg_replace("/\s/", '_', ($order->customer_name ?? '')) . '_' . ($order->order_date ?? '') . '_.pdf');
+        }catch(Exception $e){
+            dd($e->getMessage());
+        }
+
+
+        return view('backend.pages.order.pdf_generate', compact('order'));
 
     }
 

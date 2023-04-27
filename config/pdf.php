@@ -32,6 +32,12 @@ return [
             'R'         => 'Nikosh.ttf',
             'useOTL'    => 0xFF,
         ],
+        'barlow' => [
+            'R'  => 'Barlow-Light.ttf',    // regular font
+        ],
+        'mplus' => [
+            'R' => 'MPLUS1p-Light.ttf'
+        ]
     ],
     'auto_language_detection'  => false,
     'temp_dir'                 => storage_path('app/temp'),
