@@ -455,6 +455,8 @@
             category_id = elem.attr('data-categoryid');
         category_name = elem.attr('data-categoryName');
 
+        console.log('category_id', category_id);
+        console.log('elem', elem);
         $.ajax({
             url: `{{ route('customize.getCustomizeProduct','')}}/${category_id}`,
             method: 'GET',
@@ -462,7 +464,7 @@
                 console.log('sending ...');
             },
             success(data) {
-                console.log(data);
+                console.log('customData', data);
                 let
                     cssStyle = '',
                     products = ``;

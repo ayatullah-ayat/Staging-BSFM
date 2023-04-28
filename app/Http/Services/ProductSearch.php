@@ -183,14 +183,16 @@ trait ProductSearch
                 if ($lastId == $maxId) $isLastRecord = true;
 
                 $isInwish       = in_array($item->id, $cookieData['wishLists']) ? 'removeFromWish' : 'addToWish';
-                $isInCart       = !in_array($item->id, $cookieData['productIds']) ? 'addToCart' : 'alreadyInCart';
-                $cartContent    = !in_array($item->id, $cookieData['productIds']) ? 'কার্ডে যুক্ত করুন' : '<span>অলরেডি যুক্ত আছে</span>';
+                $isInCart       = !in_array($item->id, $cookieData['productIds']) ? 'openCartModal' : 'alreadyInCart';
+                $cartContent    = !in_array($item->id, $cookieData['productIds']) ? 'Add to Car' : '<span>Add to Cart</span>';
                 $userId         = auth()->user()->id ?? null;
                 $thumbnail      = asset($item->product_thumbnail_image);
                 $route          = route('product_detail', $item->id);
                 $route2         = route('checkout_index', $item->id);
                 $unitprice      = $item->unit_price ?? 0.0;
                 $salesPrice     = salesPrice($item) ?? 0.0;
+
+                $product_name = \Str::limit($item->product_name, 15);
 
                 $discountContent = "";
                 if ($item->product_discount) {
@@ -201,12 +203,12 @@ trait ProductSearch
 
                 if ($item->total_stock_qty > 0) :
                     $buttonCentent .= "<button type=\"button\" data-productid=\"{$item->id}\" class=\"btn btn-sm btn-secondary btn-card {$isInCart}\"> {$cartContent}</button>
-                        <a href=\"{$route2}\" type=\"button\" class=\"btn btn-sm btn-danger\"> অর্ডার করুন </a>";
+                        <a href=\"{$route2}\" type=\"button\" class=\"btn btn-sm btn-danger\"> Order Now </a>";
                 else :
                     $buttonCentent .= "<span class=\"text-danger\">Out of Stock</span>";
                 endif;
 
-                $html .= "<div class=\"mb-3\">
+                $html .= "<div class=\"col-md-3 col-sm-4 col-6\">
                             <div class=\"card __product-card\">
                                 <div class=\"card-wishlist {$isInwish}\" data-auth=\"{$userId}\" data-productid=\"{$item->id}\" style=\"z-index: 100;\" type=\"button\"> <i class=\"fa-solid fa-heart\"></i></div>
                                 <a href=\"{$route}\">
@@ -214,11 +216,11 @@ trait ProductSearch
                                 </a>
                                 <div class=\"card-body p-0\">
                                     <div class=\"card-product-title card-title text-center fw-bold\">
-                                        <a href=\"{$route}\" class=\"text-decoration-none text-dark\"><h5>{$item->product_name}</h5></a>
+                                        <a href=\"{$route}\" class=\"text-decoration-none text-dark\"><h5 data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"{$item->product_name}\">{$product_name}</h5></a>
                                     </div>
 
                                     <div class=\"card-product-price card-text text-center fw-bold\">
-                                        <h5>বর্তমান মূুল্য {$salesPrice} /= {$discountContent} </h5>
+                                        <h5>Sale Price {$salesPrice} /= {$discountContent} </h5>
                                     </div>
                                     <div class=\"card-product-button d-flex justify-content-evenly\">
                                         {$buttonCentent}

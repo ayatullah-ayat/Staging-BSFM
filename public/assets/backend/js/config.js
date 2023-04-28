@@ -208,6 +208,7 @@ function loadMoreItems(){
     dataInsertElem  = $(document).find('[data-insert]'),
     dataInsert      = dataInsertElem.data('insert');
 
+    console.log(containerLoader);
     if (!uri) return false;
     
     ajaxFormToken();

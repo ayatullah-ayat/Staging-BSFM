@@ -135,7 +135,6 @@ class HomeController extends Controller
                 ['is_active', 1]
             ])
             ->get();
-            
             return response()->json($products);
 
         } catch (\Throwable $th) {
@@ -221,13 +220,16 @@ class HomeController extends Controller
             $maxCatId       = 0;
             $html           = "";
 
+            
             if ($customservicecategories) :
                 foreach ($customservicecategories as $customservicecategory) :
                     $maxCatId = $customservicecategory->id;
+                    $cat_name = \Illuminate\Support\Str::limit($customservicecategory->category_name, 8);
+                    $cat_description = \Illuminate\Support\Str::limit($customservicecategory->category_description, 30);
                     if ($lastId == $maxCatId) $isLastRecord = true;
 
                     $imageSRC = $customservicecategory->category_thumbnail ? asset($customservicecategory->category_thumbnail) : asset('assets/frontend/img/product/1234.png');
-                    $html .= "<div class=\"col-md-4 col-sm-12 mb-2\">
+                    $html .= "<div class=\"col-md-4 col-sm-6 col-6 mb-1 product-area-column\">
                             <div class=\"product-content d-flex\">
 
                                 <div class=\"animating reveal\">
@@ -239,9 +241,9 @@ class HomeController extends Controller
                                 </div>
 
                                 <div class=\"product-details text-center\">
-                                    <h3 class=\"product-title\"> {$customservicecategory->category_name} </h3>
-                                    <p class=\"product-text\">  {$customservicecategory->category_description} </p>
-                                    <a href=\"javascript:void(0)\" id=\"category_id\" data-categoryid=\"{$customservicecategory->id}\" type=\"button\" class=\"product-button customize-btn\"> কাস্টমাইজ করুন </a>
+                                    <h3 class=\"product-title\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"{$customservicecategory->category_name}\"> {$cat_name} </h3>
+                                    <p class=\"product-text\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"{ $customservicecategory->category_description }\">  {$cat_description} </p>
+                                    <a href=\"javascript:void(0)\" id=\"category_id\" data-categoryid=\"{$customservicecategory->id}\" data-categoryName=\"{$customservicecategory->category_name}\" type=\"button\" class=\"product-button customize-btn\"> Customize </a>
                                 </div>
             
                             </div>
