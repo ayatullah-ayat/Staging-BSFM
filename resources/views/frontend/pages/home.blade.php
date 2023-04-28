@@ -17,7 +17,7 @@
         <img src="{{asset('assets/frontend/img/bg/bg-1.png')}}" alt="bg-1">
     </div>
 
-    <div class="container p-3" style="background-color: #ecf5f9;">
+    <div class="container p-3">
         <div class="row">
             <div class="col-md-2"></div>
             <div class="col-md-8 col-sm-12 d-flex align-items-center justify-content-center">

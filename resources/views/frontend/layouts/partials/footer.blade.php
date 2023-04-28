@@ -56,7 +56,7 @@
                 </div>
 
                 <div class="category-menu">
-                    <ul class="list-unstyled">
+                    <ul class="list-unstyled ff-size">
                         @isset($customservicecategoriesFooter)
                             @foreach ( $customservicecategoriesFooter as $customservicecategory )
                                 <li><a href="javascript:void(0)" class="customize-btn" data-categoryid="{{ $customservicecategory->id }}">{{ $customservicecategory->category_name }}</a></li>
@@ -76,12 +76,12 @@
 
                 <div class="footer-menu">
                     <ul class="list-unstyled">
-                        <li><a href="{{ route('home_index')}}"> Customize</a></li>
-                        <li><a href="{{ route('shop_index')}}"> Shop</a></li>
-                        <li><a href="{{ route('about_index')}}"> About</a></li>
-                        <li><a href="{{ route('contact_index')}}"> Contact </a></li>
-                        <li class="ordertraking-footer"><a href="javascript:void(0)"> Track Order </a></li>
-                        <li><a href="{{ route('dashboard.index')}}"> Account </a></li>
+                        <li><a class="ff-size" href="{{ route('home_index')}}"> Customize</a></li>
+                        <li><a class="ff-size" href="{{ route('shop_index')}}"> Shop</a></li>
+                        <li><a class="ff-size" href="{{ route('about_index')}}"> About</a></li>
+                        <li><a class="ff-size" href="{{ route('contact_index')}}"> Contact </a></li>
+                        <li class="ordertraking-footer"><a class="ff-size" href="javascript:void(0)"> Track Order </a></li>
+                        <li><a class="ff-size" href="{{ route('dashboard.index')}}"> Account </a></li>
                     </ul>
                 </div>
              
