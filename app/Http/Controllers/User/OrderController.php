@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
+use PDF;
 use Exception;
 use App\Models\Order;
 use App\Models\Coupon;
@@ -21,6 +22,7 @@ use Illuminate\Support\Facades\Cookie;
 use App\Http\Requests\CustomOrderRequest;
 use App\Models\Custom\CustomServiceOrder;
 use Devfaysal\BangladeshGeocode\Models\Division;
+use Faker\Factory as Faker;
 
 class OrderController extends Controller
 {
@@ -50,6 +52,34 @@ class OrderController extends Controller
         //checkout
     }
 
+    public function orderSuccess($order_no = null)
+    {
+        return view('frontend.pages.order_success', compact('order_no'));
+    }
+
+    public function invoiceDownload($order_no){
+        // dd($order_no);
+        try{
+
+            $pdf = PDF::loadView('frontend.pages.order_invoice', compact('order_no'), [], [
+                    'margin_left'   => 8,
+                    'margin_right'  => 1,
+                    'margin_top'    => 38,
+                    'margin_bottom' => 25,
+                    'margin_header' => 12,
+                    'margin_footer' => 10,
+                ]);
+
+
+
+            return $pdf->stream('order_invoice_' . preg_replace("/\s/", '_', ($order->customer_name ?? '')) . '_' . ($order->order_date ?? '') . '_.pdf');
+        }catch(Exception $e){
+            dd($e->getMessage());
+        }
+
+
+        return view('frontend.pages.order_invoice', compact('order'));
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -222,7 +252,12 @@ class OrderController extends Controller
             $sizes      = [];
             $orderDetail=[];
 
-            $order_no = auth()->guard('web')->check() ? uniqid() . '_' . auth()->guard('web')->user()->id  : uniqid();
+            $faker = Faker::create();
+            $randomString1 = $faker->regexify('[A-Z0-9]{4}');
+            $randomString2 = $faker->regexify('[A-Z0-9]{2}');
+            $dateNow = date('Ymd');
+            // $order_no = auth()->guard('web')->check() ? uniqid() . '_' . auth()->guard('web')->user()->id  : uniqid();
+            $order_no = 'M' . $dateNow . '-'. $randomString1 . '-' . $randomString2;
 
             DB::beginTransaction();
             
@@ -339,6 +374,7 @@ class OrderController extends Controller
                 'order_sizes'       => count($sizes) ? implode(',', $sizes) : null,
                 'order_colors'      => count($colors) ? implode(',', $colors) : null,
                 'shipping_address'  => $req['shipment']['address'] ?? null,
+                'city'              => $req['shipment']['city'] ?? null,
                 'payment_type'      => $req['shipment']['payment_type'] ?? null,
                 'payment_total_price'=> 0,
                 'shipment_cost'     => 0,
@@ -357,11 +393,11 @@ class OrderController extends Controller
             $order->orderDetails()->createMany($orderDetail);
 
 
-            Event::dispatch(new OrderEvent($order));
+            // Event::dispatch(new OrderEvent($order));
 
-            $response = $this->sendEmail($order);
-            if (!$response['success'])
-                throw new Exception($response['msg'], 403);
+            // $response = $this->sendEmail($order);
+            // if (!$response['success'])
+            //     throw new Exception($response['msg'], 403);
 
             
             DB::commit();
@@ -374,6 +410,7 @@ class OrderController extends Controller
 
             return response()->json([
                 'success'   => true,
+                'data'      => $order,
                 'msg'       => 'Order Placed Successfully!',
             ]);
 
@@ -385,11 +422,9 @@ class OrderController extends Controller
                 'success'   => false,
                 'msg'       => $th->getMessage(),
                 'data'      => null
-            ]);
+            ], 403);
         }
     }
-
-
 
     private function productName($id){
         $product = Product::find($id);

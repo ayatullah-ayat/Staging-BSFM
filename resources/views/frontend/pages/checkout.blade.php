@@ -271,7 +271,7 @@
                             <select class="border" name="city" id="city" style="width: 100%; height: 28px;">
                                 <option value="0" disabled selected>Select City</option>
                                 @foreach($cities as $city)
-                                <option value="{{ $city->id }}">{{ $city->name }}</option>
+                                <option value="{{ $city->name }}">{{ $city->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -461,6 +461,7 @@
         let mobile_no = $('input[name="mobile_no"]').val();
         let email = $('input[name="email"]').val();
         let address = $('textarea[name="address"]').val();
+        let city = $('#city').val();
         let payment_type = $('input[name="payment_type"]:checked').val();
 
         return {
@@ -468,6 +469,7 @@
             mobile_no,
             email,
             address,
+            city,
             payment_type
         };
     }
@@ -687,8 +689,6 @@
                     orderBtn.html(`<span class="fa fa-spinner fa-spin mx-1" style="color: #fff !important;"></span>Processing ...`);
                 },
                 success: function(res) {
-                    console.log(res);
-
                     // if success then reset form
 
                     if (res?.success) {
@@ -697,8 +697,9 @@
 
                         resetShipmentInfo();
 
-                        setTimeout(() => {
-                            window.location.reload();
+                        setTimeout(() => 
+                        {
+                            window.location.href = "{{ route('order_success') }}" + '/' + res.data.order_no;
                         }, 3000)
                     } else {
                         _toastMsg(res?.msg ?? 'Something wents wrong!');

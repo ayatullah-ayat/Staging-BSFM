@@ -84,6 +84,8 @@ Route::group(['prefix' => ''],function(){
     Route::get('/shop/{product}/{slug?}',   [ShopController::class, 'show'])->name('product_detail');
 
     Route::get('/checkout/{product?}',      [CustomerOrderController::class, 'index'])->name('checkout_index');
+    Route::get('/order-success/{order_no?}',[CustomerOrderController::class, 'orderSuccess'])->name('order_success');
+    Route::get('/invoice-download/{order_no}',[CustomerOrderController::class, 'invoiceDownload'])->name('invoice_download');
     Route::post('/checkcoupon',             [CustomerOrderController::class, 'checkCoupon'])->name('checkCoupon');
     Route::post('/removecoupon',            [CustomerOrderController::class, 'removeCoupon'])->name('removeCoupon');
     Route::post('/create-order',            [CustomerOrderController::class, 'store'])->name('store_order');
