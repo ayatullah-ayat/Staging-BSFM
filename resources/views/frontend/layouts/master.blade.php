@@ -95,7 +95,7 @@
             <div class="modal-content modal-dialog-scrollable">
 
                 <div class="modal-header">
-                    <h5 class="modal-title text-center mx-auto" id="exampleModalLabel "> আপনার অর্ডার ট্রাক করুন! </h5>
+                    <h5 class="modal-title text-center mx-auto" id="exampleModalLabel "> Track Order Your! </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 

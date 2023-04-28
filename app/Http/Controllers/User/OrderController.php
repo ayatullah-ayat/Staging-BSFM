@@ -393,11 +393,11 @@ class OrderController extends Controller
             $order->orderDetails()->createMany($orderDetail);
 
 
-            // Event::dispatch(new OrderEvent($order));
+            Event::dispatch(new OrderEvent($order));
 
-            // $response = $this->sendEmail($order);
-            // if (!$response['success'])
-            //     throw new Exception($response['msg'], 403);
+            $response = $this->sendEmail($order);
+            if (!$response['success'])
+                throw new Exception($response['msg'], 403);
 
             
             DB::commit();
