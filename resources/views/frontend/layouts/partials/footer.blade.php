@@ -59,7 +59,7 @@
                     <ul class="list-unstyled ff-size">
                         @isset($customservicecategoriesFooter)
                             @foreach ( $customservicecategoriesFooter as $customservicecategory )
-                                <li><a href="javascript:void(0)" class="customize-btn" data-categoryid="{{ $customservicecategory->id }}">{{ $customservicecategory->category_name }}</a></li>
+                                <li><a href="javascript:void(0)" class="customize-btn" data-categoryid="{{ $customservicecategory->id }}" data-toggle="tooltip" data-placement="bottom" title="{{ $customservicecategory->category_name }}">{{ \Str::limit($customservicecategory->category_name, 14) }}</a></li>
                             @endforeach
                         @endisset
 
