@@ -8,29 +8,29 @@
         <div class="row my-4">
 
             @php
-            $pQty = 1;
-            $totalPrice = 0;
-            $couponPrice = session('coupon') ? session('coupon')['total_discount_amount'] : 0;
-            $grandtotalPrice=0;
+                $pQty = 1;
+                $totalPrice = 0;
+                $couponPrice = session('coupon') ? session('coupon')['total_discount_amount'] : 0;
+                $grandtotalPrice=0;
             @endphp
 
             @isset($product)
-            @if($product->total_product_unit_price && $product->total_product_qty)
-            @php
-            $totalprice = $product->total_product_unit_price;
-            $totalqty = $product->total_product_qty;
-            $unitprice = $totalprice / $totalqty;
-            @endphp
-            @endif
+                @if($product->total_product_unit_price && $product->total_product_qty)
+                    @php
+                        $totalprice = $product->total_product_unit_price;
+                        $totalqty = $product->total_product_qty;
+                        $unitprice = $totalprice / $totalqty;
+                    @endphp
+                @endif
 
-            @if ( $product->total_product_unit_price)
-            @php
-            $pQty = isset($_GET['q']) ? $_GET['q'] : 1;
-            $saleprice = (salesPrice($product) ?? 0.0) * (int)$pQty;
-            $totalPrice += $saleprice;
-            $grandtotalPrice = $totalPrice;
-            @endphp
-            @endif
+                @if ( $product->total_product_unit_price)
+                    @php
+                        $pQty = isset($_GET['q']) ? $_GET['q'] : 1;
+                        $saleprice = (salesPrice($product) ?? 0.0) * (int)$pQty;
+                        $totalPrice += $saleprice;
+                        $grandtotalPrice = $totalPrice;
+                    @endphp
+                @endif
 
             @endisset
 
@@ -38,23 +38,24 @@
             @if( isset($cartProducts) && !isset($product->product_name))
 
 
-            @foreach ($cartProducts as $key => $item)
-            @php $productQty = 1; @endphp
+                @foreach ($cartProducts as $key => $item)
+                    @php $productQty = 1; @endphp
 
-            @foreach ($cartQtys as $cartQty)
-            @php
-            if(isset($cartQty['product_id']) && $cartQty['product_id'] == $item->id){
-            $productQty = (int)$cartQty['qty'] ?? 1;
-            $productColor = $cartQty['color'] ?? null;
-            $productSize = $cartQty['size'] ?? null;
-            break;
-            }
-            @endphp
-            @endforeach
-            @php
-            $totalPrice += (salesPrice($item) ?? 0.0) * $productQty;
-            $grandtotalPrice = $totalPrice; @endphp
-            @endforeach
+                    @foreach ($cartQtys as $cartQty)
+                        @php
+                        if(isset($cartQty['product_id']) && $cartQty['product_id'] == $item->id){
+                            $productQty = (int)$cartQty['qty'] ?? 1;
+                            $productColor = $cartQty['color'] ?? null;
+                            $productSize = $cartQty['size'] ?? null;
+                            break;
+                        }
+                        @endphp
+                    @endforeach
+                    @php
+                        $totalPrice += (salesPrice($item) ?? 0.0) * $productQty;
+                        $grandtotalPrice = $totalPrice; 
+                    @endphp
+                @endforeach
             @endif
 
             <div class="col-md-4 order-md-2 mb-4">
@@ -697,8 +698,7 @@
 
                         resetShipmentInfo();
 
-                        setTimeout(() => 
-                        {
+                        setTimeout(() => {
                             window.location.href = "{{ route('order_success') }}" + '/' + res.data.order_no;
                         }, 3000)
                     } else {

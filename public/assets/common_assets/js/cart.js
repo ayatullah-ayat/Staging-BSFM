@@ -18,7 +18,9 @@ function openAddToCartModal(e){
     let 
     elem        = $(this),
     id          = elem.attr('data-productid');
-    displayVariants(id);
+    let isOrderNow     = elem.attr('data-isordernow') && Number(elem.attr('data-isordernow')) == 1 ? true : false;
+
+    displayVariants(id, isOrderNow);
     
 }
 
@@ -27,7 +29,7 @@ function clearVariants(){
     $('.cart_size_container').empty();
 }
 
-function displayVariants(product_id){
+function displayVariants(product_id, isOrderNow){
     clearVariants();
     $.ajax({
         type: 'get',
@@ -64,6 +66,14 @@ function displayVariants(product_id){
             });
             $('.cart_color_container').append(colorHtml);
             $('.cart_size_container').append(sizeHtml);
+            if(isOrderNow){
+                $('.addToCart').text('Order Now')
+                $('.addToCart').attr('data-ordernow', 1);
+                $('.addToCart').attr('data-cartproduct-id', product_id);
+            }else{
+                $('.addToCart').text('Add to Cart');
+                $('.addToCart').attr('data-cartproduct-id', product_id);
+            }
             $('#addToCartModal').modal('show');
 
         },
@@ -322,7 +332,12 @@ function updateCartQty(cartItemsQty) {
         dataType: 'html',
         cache: false,
         success: function (items) {
-            console.log(items);
+            if($('.addToCart').attr('data-ordernow')){
+                window.location.href = "/cart"
+            }else{
+                window.location.href = "/shop";
+            }
+            
         },
         error: function (err) {
             console.log(err);

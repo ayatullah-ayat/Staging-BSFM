@@ -60,7 +60,7 @@
                                     <button type="button" data-productid="{{ $item->id }}" class="btn btn-sm btn-secondary btn-card {{ !in_array($item->id,$productIds) ? 'openCartModal' : 'alreadyInCart' }}">
                                         {!! !in_array($item->id,$productIds) ? 'Add to Cart' :'<span>Add to Cart</span>' !!}
                                     </button>
-                                    <a href="{{ route('checkout_index',$item->id ) }}?ref={{ uniqid() }}" type="button" class="btn btn-sm btn-danger"> Order Now </a>
+                                    <button data-productid="{{ $item->id }}" data-isordernow="1" type="button" class="btn btn-sm btn-danger openCartModal"> Order Now </button>
                                     @else
                                     <span class="text-danger">Out of Stock</span>
                                     @endif
@@ -163,6 +163,8 @@
                 $(this).addClass('fadeOutUp');
                 setTimeout(() => {
                     $(this).modal('hide').removeClass('fadeOutUp');
+                    $('.addToCart').removeAttr('data-ordernow');
+                    $('.addToCart').removeAttr('data-cartproduct-id');
                 }, 500);
             }
         });
@@ -250,6 +252,7 @@
         const color = $(document).find('.cart_color_container .color.selected').attr('data-color');
         const size = $(document).find('.cart_size_container .size.selected').attr('data-size');
 
+        console.log('color', color, 'size', size);
         let obj = {
             product_id,
             qty: 1,
@@ -311,11 +314,13 @@
         }
 
         let
-            elem = $('.openCartModal'),
-            id = elem.attr('data-productid'),
+            elem = $('.addToCart'),
+            id = elem.attr('data-cartproduct-id'),
             cartBadge = $('.cartvalue'),
             selectedColor = selectedColorElem.attr('data-color'),
             selectedSize = selectedSizeElem.attr('data-size');
+        
+        console.log('productId', id);
 
         $.ajax({
             headers: {
@@ -329,6 +334,7 @@
             dataType: 'html',
             cache: false,
             success: function(items) {
+                console.log('cart added successfully!');
                 let products = JSON.parse(items);
                 if (!Array.isArray(products)) {
                     products = Object.entries(products);
