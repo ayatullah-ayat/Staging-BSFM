@@ -76,8 +76,12 @@ if (!function_exists('renderFileInput')) {
 if (!function_exists('profilePhoto')) {
     function profilePhoto($path=null,array $attributes=[]){
 
-        $profilePath = $path ? asset($path) : asset('assets/frontend/img/profile/profile-picture.png');
+        $avatar = Avatar::create(auth()->user()->name)->toBase64();
+        
 
+        $profilePath = $path ? asset($path) : "$avatar";
+
+        return "<img src=\"$profilePath\"/>";
         $result = "<img src=\"$profilePath\" " . join(' ', array_map(function ($key) use ($attributes) {
             if (is_bool($attributes[$key])) {
                 return $attributes[$key] ? $key : '';

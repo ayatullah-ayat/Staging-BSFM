@@ -68,12 +68,18 @@
                         <i class="fas fa-user"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="user-dropdown">
-                        <li><a class="dropdown-item" href="#">Profile</a></li>
-                        <li><a class="dropdown-item" href="#">Settings</a></li>
+                        <li><a class="dropdown-item" href="{{ route('dashboard.index') }}">Profile</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item" href="#">Logout</a></li>
+                        @if(!auth()->check())
+                            <li><a class="dropdown-item" href="{{ route('login') }}">Login</a></li>
+                        @else
+                            <li>
+                                <a class="dropdown-item" onclick="javascript: document.getElementById('hlogoutForm').submit()" href="#">Logout</a>
+                                <form action="{{ route('logout') }}" method="POST" id="hlogoutForm"> @csrf </form>
+                            </li>
+                        @endif
                     </ul>
                 </div>
 
