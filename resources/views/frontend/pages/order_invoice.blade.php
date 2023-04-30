@@ -202,9 +202,9 @@
         <div class="row">
             <div class="col-6">
                 <div class="text-bold" style="font-size: 12px;">Delivery Address</div>
-                <div class="text-bold" style="margin: 4px 0">TEST USER</div>
-                <div style="font-size:small;">Test Address , Chuadanga</div>
-                <div class="text-bold" style="margin-top:5px;">8 3 8 3 8 3 8 3 8 3</div>
+                <div class="text-bold" style="margin: 4px 0">{{ ($order->customer_name ?? $order->customer->customer_name ) ?? 'N/A' }}</div>
+                <div style="font-size:small;">{{ $order->shipping_address ?? '' }}</div>
+                <div class="text-bold" style="margin-top:5px; letter-spacing: 3px;">{{ ($order->customer_phone ?? $order->customer->customer_phone) ?? 'N/A' }}</div>
             </div>
             <div class="col-6">
                 <div class="row">
@@ -213,19 +213,19 @@
                     </div>
                     <div class="col-6">_</div>
                     <div class="col-6 text-bold inv-fcolumn">Invoice ID:</div>
-                    <div class="col-6" style="font-size:14px;">F20230409-LGIR-GC:</div>
+                    <div class="col-6" style="font-size:14px;">{{ $order->order_no }}</div>
 
                     <div class="col-6 text-bold inv-fcolumn" style="margin-top: 8px;">Date:</div>
-                    <div class="col-6" style="font-size:14px;">2023-04-09</div>
+                    <div class="col-6" style="font-size:14px;">{{ date('Y-m-d' ,strtotime($order->created_at)) }}</div>
                     
                     <div class="col-6 text-bold inv-fcolumn">Item Count:</div>
-                    <div class="col-6" style="font-size:14px;">4</div>
+                    <div class="col-6" style="font-size:14px;">{{ $order->order_total_qty }}</div>
                     
                     <div class="col-6 text-bold inv-fcolumn" style="margin-top: 8px;">Payment:</div>
-                    <div class="col-6 text-bold" style="font-size:18px;">Cash On Delivery</div>
+                    <div class="col-6 text-bold" style="font-size:18px;">{{ $order->payment_type }}</div>
                     
                     <div class="col-6 text-bold inv-fcolumn">Payable:</div>
-                    <div class="col-6 text-bold" style="font-size:18px;">BDT 2,500.0</div>
+                    <div class="col-6 text-bold" style="font-size:18px;">BDT {{ $order->order_total_price }}</div>
                     
                     <div class="col-12" style="margin-top: 15px;">
                         <img height="48px" src="data:image/png;base64,{{ DNS1D::getBarcodePNG('552223333335', 'I25+') }}" alt="barcode">
@@ -250,43 +250,43 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td colspan="7" style="height: 8px;"></td>
-                </tr>
-                <tr>
-                    <td>1.</td>
-                    <td>Fabrilife Mens Premium Designer Edition T Shirt - Memento</td>
-                    <td>White</td>
-                    <td>M</td>
-                    <td>630.0</td>
-                    <td>2</td>
-                    <td>200</td>
-                </tr>
+                @php
+                $sl = 0;
+                $subSubtotal = 0;
+                $totalDiscount = 0;
+                @endphp
+                @foreach($order->orderDetails as $orderDetail)
+                    @php
+                        $subSubtotal    += $orderDetail->subtotal;
+                        $totalDiscount  += $orderDetail->discount_price;
 
-                <tr>
-                    <td colspan="7" style="height: 8px;"></td>
-                </tr>
-                <tr>
-                    <td>1.</td>
-                    <td>Fabrilife Mens Premium Designer Edition T Shirt - Memento</td>
-                    <td>White</td>
-                    <td>M</td>
-                    <td>630.0</td>
-                    <td>2</td>
-                    <td>200</td>
-                </tr>
+                        $sl++;
+                    @endphp
+                    <tr>
+                        <td colspan="7" style="height: 8px;"></td>
+                    </tr>
+                    <tr>
+                        <td>{{ $sl }}.</td>
+                        <td>{{ $orderDetail->product_name }}</td>
+                        <td>{{ $orderDetail->product_color }}</td>
+                        <td>{{ $orderDetail->product_size }}</td>
+                        <td>{{ $orderDetail->product_price }}</td>
+                        <td>{{ $orderDetail->product_qty }}</td>
+                        <td>{{ $orderDetail->subtotal }}</td>
+                    </tr>
+                @endforeach
             </tbody>
         </table>
     </div>
     <div class="overall-calculation text-right" style="line-height: 28px;">
-        <div class="text-bold" style="font-size: 14px;">Sub Total: BDT 2,400.0</div>
-        <div style="font-size: small;">Shipping Fee: BDT 100.0</div>
-        <div style="font-size: small;">Discount: BDT 0.0</div>
+        <div class="text-bold" style="font-size: 14px;">Sub Total: BDT {{ $subSubtotal }}</div>
+        <div style="font-size: small;">Shipping Fee: BDT {{ 0 }}</div>
+        <div style="font-size: small;">Discount: BDT {{ $totalDiscount }}</div>
         <div style="line-height: 28px;margin-top: 8px;margin-bottom: 6px;">
-            <div class="text-bold" style="font-size: 14px; line-height: 18px;">Total: BDT 2,500.0</div>
+            <div class="text-bold" style="font-size: 14px; line-height: 18px;">Total: BDT {{ $subSubtotal - $totalDiscount }}</div>
             <div style="font-size: small;line-height: 18px;">(Including VAT)</div>
         </div>
-        <div style="font-size: small;">In Words: Two Thousand, Five Hundred Tk Only</div>
+        <div style="font-size: small;">In Words: {{ numToWords((float) $subSubtotal) }} Tk Only</div>
     </div>
 
     <sethtmlpagefooter name="page-footer" />

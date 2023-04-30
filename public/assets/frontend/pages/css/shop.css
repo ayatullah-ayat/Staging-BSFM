@@ -436,6 +436,12 @@
     #shopFilterContent {
         display: none;
     }
+    .card-product-button{
+        flex-direction: column;
+    }
+    .card-product-button button {
+        margin-bottom: 1px; 
+    }
     .shopFilter {
         display: block;
         top: 68px;
@@ -523,7 +529,7 @@
     .__product-card {
         width: 100% !important;
         max-height: 100% !important;
-        padding-bottom: 10px;
+        padding-bottom: 0px;
     }
 }
 
@@ -532,7 +538,7 @@
     .__product-card {
         width: 100% !important;
         max-height: 100% !important;
-        padding-bottom: 10px;
+        padding-bottom: 0px;
     }
 }
 

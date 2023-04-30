@@ -58,10 +58,10 @@ class OrderController extends Controller
     }
 
     public function invoiceDownload($order_no){
-        // dd($order_no);
+        $order = Order::where('order_no', $order_no)->first();
         try{
 
-            $pdf = PDF::loadView('frontend.pages.order_invoice', compact('order_no'), [], [
+            $pdf = PDF::loadView('frontend.pages.order_invoice', compact('order'), [], [
                     'margin_left'   => 8,
                     'margin_right'  => 1,
                     'margin_top'    => 38,

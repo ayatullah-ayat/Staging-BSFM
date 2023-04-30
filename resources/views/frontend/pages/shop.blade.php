@@ -184,10 +184,9 @@
         $(document).ready(function() {
             // Get all the accordion items
             var accordionItems = $('.accordion .collapse');
-            // Open each item
-            accordionItems.each(function() {
-                $(this).collapse('show');
-            });
+
+            accordionItems.slice(1).collapse('hide');
+            accordionItems.first().collapse('show');
 
             $(document).on('click', '#shopFilterBtn', showFilterContent);
         });
@@ -319,7 +318,7 @@
             cartBadge = $('.cartvalue'),
             selectedColor = selectedColorElem.attr('data-color'),
             selectedSize = selectedSizeElem.attr('data-size');
-        
+
         console.log('productId', id);
 
         $.ajax({
@@ -341,6 +340,14 @@
                 }
                 cartBadge.html(products.length || 1);
                 updateSelectedStatus(id);
+
+                setTimeout(() => {
+                    if ($('.addToCart').attr('data-ordernow')) {
+                        window.location.href = "/cart"
+                    } else {
+                        window.location.href = "/shop";
+                    }
+                }, 500);
 
                 $('#addToCartModal').modal('hide');
 

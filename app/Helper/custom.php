@@ -4,9 +4,19 @@ use App\Models\Admin;
 use App\Models\Company;
 use App\Models\Notification;
 use Illuminate\Support\Facades\DB;
+use NumberToWords\NumberToWords;
 
 if (!function_exists('check_internet')) {
 
+    if (!function_exists('numToWords')){
+        function numToWords($number){
+            $numberToWords = new NumberToWords();
+            $numberToWords = $numberToWords->getNumberTransformer('en');
+            $inWords = $numberToWords->toWords($number);
+            // dd($inWords);
+            return $inWords;
+        }
+    }
     function check_internet()
     {
         try {

@@ -332,12 +332,7 @@ function updateCartQty(cartItemsQty) {
         dataType: 'html',
         cache: false,
         success: function (items) {
-            if($('.addToCart').attr('data-ordernow')){
-                window.location.href = "/cart"
-            }else{
-                window.location.href = "/shop";
-            }
-            
+            console.log('item', item);
         },
         error: function (err) {
             console.log(err);
