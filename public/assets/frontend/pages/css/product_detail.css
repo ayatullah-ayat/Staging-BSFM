@@ -358,6 +358,10 @@
         margin-bottom: 20px;
     }
 
+    .m-container {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
     .single-prodect-info.right {
         padding: 0px 0px 20px 0px;
     }

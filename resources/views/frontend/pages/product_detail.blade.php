@@ -5,7 +5,7 @@
 
 <!-- Single Product Area-->
 <section class="container-fluid single-product-area my-5">
-    <div class="container">
+    <div class="container m-container">
         <div class="row">
             <div class="col-md-6">
                 <div class="single-prodect-info right">
@@ -177,7 +177,7 @@
 
 <!-- Product-Tabs Area-->
 <section class="container-fluid product-tabs">
-    <div class="container">
+    <div class="container m-container">
         <div class="row">
             <div class="col-md-12">
 
@@ -322,7 +322,7 @@
 <!-- Our Contact Area-->
 <section class="container-fluid call-center-area">
 
-    <div class="container">
+    <div class="container m-container">
         <div class="row">
             <div class="col-md-12 d-flex align-items-center justify-content-center">
                 <div class="call-center text-center">
@@ -341,6 +341,7 @@
 <link rel="stylesheet" href="{{ asset('assets/frontend/libs/slick-carousel/slick-theme.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/frontend/libs/slick-carousel/slick.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/frontend/libs/exzoom/jquery.exzoom.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/frontend/pages/css/shop.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/frontend/pages/css/product_detail.css') }}">
 <style>
     .tabs-product-comments table {
@@ -423,8 +424,6 @@
 
         // ============slider ================== 
         $('.product-slider .slider').slick({
-            dots: true,
-            infinite: false,
             speed: 500,
             slidesToShow: 5,
             slidesToScroll: 5,
@@ -432,10 +431,9 @@
             responsive: [{
                 breakpoint: 1024,
                 settings: {
-                    slidesToShow: 3,
-                    slidesToScroll: 3,
-                    infinite: true,
-                    dots: true
+                    slidesToShow: 2,
+                    slidesToScroll: 2,
+                    arrows: false,
                 }
             }, {
                 breakpoint: 600,

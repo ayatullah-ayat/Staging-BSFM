@@ -1,7 +1,7 @@
 @if(isset($products) && count($products))
 
     <section class="container-fluid related-product-area">
-        <div class="container">
+        <div class="container m-container">
             <div class="heading-title text-center">
                 <h2> Our Others Products </h2>
             </div>
