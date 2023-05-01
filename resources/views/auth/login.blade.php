@@ -13,7 +13,7 @@
     
                     <div class="account-form card">
     
-                        <h3 class="text-center"> লগ ইন করুন </h3>
+                        <h3 class="text-center"> Login </h3>
 
                         @if(session('status'))
                             <div class="alert alert-success">
@@ -40,7 +40,7 @@
                             @csrf
     
                             <div class="form-group">
-                                <input class="micro-form-control form-control border mt-3" id="email" type="email" name="email" value="{{ old('email') }}" required autofocus placeholder=" ইমেইল অ্যাড্রেস ">
+                                <input class="micro-form-control form-control border mt-3" id="email" type="email" name="email" value="{{ old('email') }}" required autofocus placeholder=" Email Address ">
                             </div>
     
                             <div class="form-group">
@@ -49,7 +49,7 @@
                                 name="password"
                                 required 
                                 autocomplete="current-password"
-                                placeholder=" পাসওয়ার্ড ">
+                                placeholder=" Password ">
                             </div>
     
                             <div class="login-remember-content my-3">
@@ -64,7 +64,7 @@
                                 <div class="account-text">
                                     @if (Route::has('password.request'))
                                     <a class="mt-5 me-3 text-end text-decoration-none" href="{{ route('password.request') }}">
-                                        {{ __('পাসওয়ার্ড ভুলে গেছেন?') }}
+                                        {{ __('Forgot Password?') }}
                                     </a>
                                     @endif
                                 </div>
@@ -72,11 +72,11 @@
                             </div>
     
                             <div class="form-group text-center">
-                                <button type="submit" class="btn btn-sm btn-danger w-100 p-1"> পাঠিয়ে দিন </button>
+                                <button type="submit" class="btn btn-sm btn-danger w-100 p-1"> Send </button>
                             </div>
     
                             <div class="form-group account-text">
-                                <span> নতুন এক্যাউন্ট খুলতে <a href="{{ route('register') }}" class="mt-5"> রেজিস্টার </a> করুন
+                                <span> To Create New Account <a href="{{ route('register') }}" class="mt-5"> Register </a> Here
                                 </span>
                             </div>
     

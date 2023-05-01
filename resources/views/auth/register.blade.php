@@ -13,7 +13,7 @@
 
                 <div class="account-form card">
 
-                    <h3 class="text-center"> রেজিস্টেশন করুন </h3>
+                    <h3 class="text-center"> Register </h3>
 
                     @if ($errors->any())
                     <div>
@@ -39,7 +39,7 @@
                                 type="text" 
                                 name="name" 
                                 required autofocus
-                                placeholder="তোমার নাম" value="{{ old('name') }}">
+                                placeholder="Your Name" value="{{ old('name') }}">
                         </div>
 
                         <div class="form-group">
@@ -47,7 +47,7 @@
                                 class="micro-form-control form-control border mt-3"
                                 value="{{ old('email') }}"
                                 id="email" 
-                                placeholder=" ইমেইল অ্যাড্রেস "
+                                placeholder=" Email Address "
                                 required
                                 name="email"
                             >
@@ -60,7 +60,7 @@
                                 name="password"
                                 required 
                                 autocomplete="new-password"
-                                placeholder=" পাসওয়ার্ড ">
+                                placeholder=" Password ">
                         </div>
 
                         <div class="form-group">
@@ -68,16 +68,16 @@
                                 id="password_confirmation"
                                 type="password"
                                 name="password_confirmation" required
-                                placeholder=" কনফর্ম পাসওয়ার্ড "
+                                placeholder=" Confirm Password "
                             >
                         </div>
 
                         <div class="form-group text-center">
-                            <button type="submit" class="btn btn-sm mt-3 btn-danger w-100 p-2"> পাঠিয়ে দিন </button>
+                            <button type="submit" class="btn btn-sm mt-3 btn-danger w-100 p-2"> Submit </button>
                         </div>
 
                         <div class="form-group account-text">
-                            <span> আপনার এক্যাউন্ট থাকলে <a href="{{ route('login') }}" class="mt-5"> লগ ইন </a> করুন </span>
+                            <span> Already Have an Account? <a href="{{ route('login') }}" class="mt-5"> Login </a> Here </span>
                         </div>
 
                     </form>
