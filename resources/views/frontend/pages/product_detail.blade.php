@@ -139,7 +139,7 @@
 
                         @if($stockQty > 0)
                         <div><button type="button" data-detail="true" class="btn btn-dark {{ $stockQty > 0 ? 'addToCart' : '' }} {{ !in_array($product->id,$productIds) ? 'addToCart' : 'alreadyInCart' }}" data-productid="{{ $product->id }}" data-stockqty="{{$stockQty}}">{!! !in_array( $product->id, $productIds) ? 'Add To Cart' :'<span>Already In Cart</span>' !!}</button></div>
-                        <div><a href="{{ $stockQty > 0 ? route('checkout_index',$product->id ) : 'javascript:void(0)' }}" type="button" class="btn btn-danger checkoutToGo" data-stockqty="{{$stockQty}}">Order Now</a></div>
+                        <div><button type="button" class="btn btn-danger checkoutToGo" data-stockqty="{{$stockQty}}" data-ordernow="1">Order Now</button></div>
                         <div data-auth="{{ auth()->user()->id ?? null }}" class="d-flex align-items-center text-danger {{ in_array($product->id,$wishLists) ? 'removeFromWish' : 'addToWish' }}" data-productid="{{ $product->id }}" data-stockqty="{{$stockQty}}" type="button"><span class="fa fa-heart fa-2x"></span></div>
                         @endif
 
@@ -406,7 +406,8 @@
         $(document).on("click", '.color_container .color', selectColor)
         $(document).on("click", '.size_container .size', selectSize)
         $(document).on("click", '.stateChange', incrementDecrementCount)
-        $(document).on("click", '.checkoutToGo', checkoutPage)
+        $(document).on("click", '.checkoutToGo', addToCart)
+        $(document).on('click', '.addToCart', addToCart);
 
         $("#exzoom").exzoom({
             // thumbnail nav options
@@ -454,6 +455,50 @@
 
     });
 
+    function addToCart(e) {
+
+
+        let elem = $(this);
+
+        let id = @json($product -> id ?? null),
+            cartBadge = $('.cartvalue');
+
+        console.log('productId', id);
+
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            type: "post",
+            url: APP_URL + '/add-to-cart',
+            data: {
+                productId: id
+            },
+            dataType: 'html',
+            cache: false,
+            success: function(items) {
+                console.log('cart added successfully!');
+                let products = JSON.parse(items);
+                if (!Array.isArray(products)) {
+                    products = Object.entries(products);
+                }
+
+                setTimeout(() => {
+                    if (elem.attr('data-ordernow')) {
+                        window.location.href = "/checkout"
+                    }
+                }, 500);
+                cartBadge.html(products.length || 1);
+                updateSelectedStatus(id);
+
+            },
+            error: function(xhr, status, error) {
+                console.log("An AJAX error occured: " + status + "\nError: " + error);
+            }
+        });
+
+
+        }
 
 
     function setIndexItem(index) {

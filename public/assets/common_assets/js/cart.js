@@ -332,7 +332,7 @@ function updateCartQty(cartItemsQty) {
         dataType: 'html',
         cache: false,
         success: function (items) {
-            console.log('item', item);
+            console.log('item', items);
         },
         error: function (err) {
             console.log(err);
