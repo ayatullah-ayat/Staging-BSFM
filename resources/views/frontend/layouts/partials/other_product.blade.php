@@ -3,7 +3,7 @@
     <section class="container-fluid related-product-area">
         <div class="container">
             <div class="heading-title text-center">
-                <h2> আমাদের অন্যান্য পণ্যসমূহ </h2>
+                <h2> Our Others Products </h2>
             </div>
             <div class="row">
                 <div class="col-md-12">
@@ -31,19 +31,19 @@
                                             </div>
 
                                             <div class="card-product-price card-text text-center fw-bold">
-                                                <h5>বর্তমান মূুল্য {{ salesPrice($product) ?? '0'}} /=
+                                                <h5>Sale Price {{ salesPrice($product) ?? '0'}} /=
                                                     @if($product->product_discount)
-                                                    <span class="text-decoration-line-through text-danger"> {{ round($product->unit_price, 0) ?? '0'}} /=</span>
+                                                    <span class="text-decoration-line-through text-danger"> {{ round($product->unit_price,0) ?? '0'}} /=</span>
                                                     @endif
                                                 </h5>
                                             </div>
 
                                             <div class="card-product-button d-flex justify-content-evenly">
                                                 @if($product->total_stock_qty > 0)
-                                                <button type="button" data-productid="{{ $product->id }}"
-                                                    class="btn btn-sm btn-secondary btn-card {{ !in_array($product->id,$productIds) ? 'addToCart' : 'alreadyInCart' }}">
-                                                    {!! !in_array($product->id,$productIds) ? 'কার্ডে যুক্ত করুন' :'<span>অলরেডি যুক্ত আছে</span>' !!}</button>
-                                                <a href="{{ route('checkout_index',$product->id ) }}" type="button" class="btn btn-sm btn-danger"> অর্ডার করুন </a>
+                                                <button type="button" data-productid="{{ $product->id }}" class="btn btn-sm btn-secondary btn-card {{ !in_array($product->id,$productIds) ? 'openCartModal' : 'alreadyInCart' }}">
+                                                    {!! !in_array($product->id,$productIds) ? 'Add to Cart' :'<span>Add to Cart</span>' !!}
+                                                </button>
+                                                <button data-productid="{{ $product->id }}" data-isordernow="1" type="button" class="btn btn-sm btn-danger openCartModal"> Order Now </button>
                                                 @else
                                                 <span class="text-danger">Out of Stock</span>
                                                 @endif
