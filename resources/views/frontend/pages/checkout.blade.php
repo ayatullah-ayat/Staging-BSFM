@@ -255,7 +255,10 @@
                     </div>
 
                     <div class="col-md-6 px-2 mb-3">
-                        <div class="form-group">
+                        <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text form-control" id="basic-addon1">+88</span>
+                        </div>
                             <input type="text" class="form-control border" placeholder="Write Your Phone No" required name="mobile_no" value="@auth{{auth()->guard('web')->user()->profile ? auth()->guard('web')->user()->profile->mobile_no : ''}}@endauth">
                             <span class="v-msg text-danger"></span>
                         </div>

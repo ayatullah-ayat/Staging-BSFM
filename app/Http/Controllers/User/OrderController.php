@@ -403,11 +403,12 @@ class OrderController extends Controller
             $sid = env('TWILIO_ACCOUNT_SID');
             $token = env('TWILIO_AUTH_TOKEN');
             $from = env('TWILIO_PHONE_NUMBER');
+            
             $inv_url = env('APP_URL'). '/invoice-download' . '/' . $order->order_no;
             $message = "Your Order Placed Successfully! Download Your Invoice - $inv_url";
 
             $client = new Client($sid, $token);
-            $client->messages->create($req['shipment']['mobile_no'], [
+            $client->messages->create('+88' . $req['shipment']['mobile_no'], [
                 'from' => $from,
                 'body' => $message
             ]);
